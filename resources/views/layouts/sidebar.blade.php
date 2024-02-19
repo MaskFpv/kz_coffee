@@ -100,7 +100,15 @@
                                 <li class="nav-item">
                                     <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Users</p>
+                                        <p>User</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view-any', App\Models\Transaction::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('transaction.index') }}" class="nav-link">
+                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                        <p>Transaksi</p>
                                     </a>
                                 </li>
                             @endcan
@@ -113,7 +121,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon icon ion-md-key"></i>
                                 <p>
-                                    Access Management
+                                    Access
                                     <i class="nav-icon right icon ion-md-arrow-round-back"></i>
                                 </p>
                             </a>
