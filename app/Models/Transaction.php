@@ -17,6 +17,7 @@ class Transaction extends Model
         'payment_method',
         'keterangan',
         'customer_id',
+        'stock_id',
     ];
 
     protected $searchableFields = ['*'];
@@ -33,5 +34,10 @@ class Transaction extends Model
     public function transactionDetails()
     {
         return $this->hasMany(TransactionDetail::class);
+    }
+
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class);
     }
 }

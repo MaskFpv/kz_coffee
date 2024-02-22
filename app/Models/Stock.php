@@ -19,4 +19,9 @@ class Stock extends Model
     {
         return $this->belongsTo(Menu::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

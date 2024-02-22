@@ -17,6 +17,13 @@ return new class extends Migration {
                 ->on('customers')
                 ->onUpdate('CASCADE')
                 ->onDelete('CASCADE');
+
+            $table
+                ->foreign('stock_id')
+                ->references('id')
+                ->on('stocks')
+                ->onUpdate('CASCADE')
+                ->onDelete('CASCADE');
         });
     }
 
@@ -27,6 +34,7 @@ return new class extends Migration {
     {
         Schema::table('transactions', function (Blueprint $table) {
             $table->dropForeign(['customer_id']);
+            $table->dropForeign(['stock_id']);
         });
     }
 };

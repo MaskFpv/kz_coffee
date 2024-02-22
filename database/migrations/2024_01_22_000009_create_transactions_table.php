@@ -17,6 +17,7 @@ return new class extends Migration {
             $table->enum('payment_method', ['cash', 'debit']);
             $table->text('keterangan');
             $table->unsignedBigInteger('customer_id');
+            $table->unsignedBigInteger('stock_id');
 
             $table->timestamps();
         });

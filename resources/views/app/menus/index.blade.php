@@ -48,7 +48,7 @@
                                     <td>
                                         {{ optional($menu->type)->nama_jenis ?? '-' }}
                                     </td>
-                                    <td>{{ $menu->harga ?? '-' }}</td>
+                                    <td>Rp. {{ $menu->harga ?? '-' }}</td>
                                     <td>
                                         <x-partials.thumbnail src="{{ $menu->photo ? \Storage::url($menu->photo) : '' }}" />
                                     </td>
