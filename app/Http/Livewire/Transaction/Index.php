@@ -9,6 +9,7 @@ use App\Models\Stock;
 use App\Models\Type;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
+use Termwind\Components\Dd;
 
 class Index extends Component
 {
@@ -22,6 +23,10 @@ class Index extends Component
     // Pesan
     public $quantity = 0;
     public $produk_detail = [];
+    public $stokHabis;
+
+    // Checkout
+    public $total_price;
 
 
     public function render()
@@ -47,6 +52,8 @@ class Index extends Component
         return view('livewire.transaction.index', compact('categories', 'menus', 'customers'));
     }
 
+    /* --------------------------------------------------------------------------------- */
+
 
     public function changeCategory($id)
     {
@@ -60,16 +67,26 @@ class Index extends Component
         $this->type_id = $id;
     }
 
+    /* --------------------------------------------------------------------------------- */
+
     //Penambahan ke pesan
     public function pilihMenu($id)
     {
         $produkIds = collect($this->produk_detail)->pluck('id');
 
         $menu = Menu::findOrFail($id);
+        $stok = Stock::where('menu_id', $id)->first();
 
         if ($produkIds->contains($id)) {
             $index = $produkIds->search($id);
-            $this->produk_detail[$index]['qty']++;
+
+            if ($this->produk_detail[$index]['quantity'] >= $stok->jumlah) {
+                $this->stokHabis = $id;
+                $this->addError('stok-habis', "Stok tidak mencukupi");
+            } else {
+
+                $this->produk_detail[$index]['quantity']++;
+            }
 
             $this->subTotalChange($index);
         } else {
@@ -78,15 +95,84 @@ class Index extends Component
                 'name' => $menu->nama,
                 'price' => $menu->harga,
                 'sub_total' => $menu->harga,
-                'qty' => 1,
+                'quantity' => 1,
             ];
 
             $this->produk_detail[] = $data;
         }
+        $this->getTotalHarga();
+        $this->getTotalHarga();
+    }
+
+
+    public function subTotalChange($index)
+    {
+
+        $price =  $this->produk_detail[$index]['price'];
+        $quantity = $this->produk_detail[$index]['quantity'];
+
+        $this->produk_detail[$index]['sub_total'] = $price * $quantity;
     }
 
     public function clearPesan()
     {
         $this->produk_detail = [];
+    }
+
+    public function hideStockMessage()
+    {
+        $this->reset('stokHabis');
+    }
+
+
+    /* --------------------------------------------------------------------------------- */
+
+    public function increaseQuantity($id)
+    {
+        $produkIds = collect($this->produk_detail)->pluck('id');
+        $index = $produkIds->search($id);
+
+        $stok = Stock::where('menu_id', $id)->first();
+
+
+        if ($this->produk_detail[$index]['quantity'] >= $stok->jumlah) {
+            $this->stokHabis = $id;
+            $this->addError('stok-habis', "Stok tidak mencukupi");
+        } else {
+            $this->produk_detail[$index]['quantity']++;
+        }
+
+        $this->subTotalChange($index);
+        $this->getTotalHarga();
+    }
+
+    public function decreaseQuantity($id)
+    {
+        $produkIds = collect($this->produk_detail)->pluck('id');
+        $index = $produkIds->search($id);
+        $this->produk_detail[$index]['quantity']--;
+
+        if ($this->produk_detail[$index]['quantity'] <= 0) {
+            unset($this->produk_detail[$index]);
+            $this->produk_detail = array_values($this->produk_detail);
+        } else {
+            $this->subTotalChange($index);
+        }
+        $this->getTotalHarga();
+    }
+
+    /* --------------------------------------------------------------------------------- */
+
+    public function getTotalHarga()
+    {
+
+        $totalPrice = 0;
+
+        foreach ($this->produk_detail as $produk) {
+            $subTotal =  $produk['sub_total'];
+            $totalPrice += $subTotal;
+        }
+
+        $this->total_price = $totalPrice;
     }
 }

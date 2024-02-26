@@ -29,7 +29,7 @@
                         </div>
                         <div class="mb-4">
                             <h4>@lang('crud.menu.inputs.harga')</h4>
-                            <span>Rp. {{ $menu->harga ?? '-' }}</span>
+                            <span>Rp. {{ isset($menu->harga) ? number_format($menu->harga, 0, ',', '.') : '-' }}</span>
                         </div>
                     </div>
                 </div>
