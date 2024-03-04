@@ -11,12 +11,19 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Termwind\Components\Dd;
+use Mockery\Undefined;
+use PHPUnit\TestRunner\TestResult\Collector;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component
 {
+    use LivewireAlert;
+
+
     // Menu List
     public Collection $types;
 
@@ -239,5 +246,91 @@ class Index extends Component
         } else {
             $this->kembalian = 'Pembayaran Kurang!';
         }
+    }
+
+    /* --------------------------------------------------------------------------------- */
+
+    // Function Checkout
+    public function checkout()
+    {
+        $rules = [
+            'date' => 'required|date',
+            'total_price' => 'required|numeric',
+            'payment_method' => 'required|in:cash,debit',
+            'keterangan' => 'required|string',
+            'customer_id' => 'required|exists:customers,id',
+        ];
+
+        if ($this->payment_method == 'cash') {
+            $rules['total_pembayaran'] = 'required|numeric|min:' . $this->total_price;
+        }
+
+        $this->validate($rules);
+
+        $transactionData = [
+            'id' => $this->no_faktur,
+            'date' => $this->date,
+            'total_price' => $this->total_price,
+            'payment_method' => $this->payment_method,
+            'keterangan' => $this->keterangan,
+            'customer_id' => $this->customer_id
+        ];
+
+        Transaction::create($transactionData);
+
+        foreach ($this->produk_detail as $produk) {
+            $subtractQty = $produk['quantity'];
+
+
+            DB::beginTransaction();
+            try {
+                $transactionDetailData = [
+                    'menu_id' => $produk['id'],
+                    'transaction_id' => $this->no_faktur,
+                    'qty' => $produk['quantity'],
+                    'unit_price' => $produk['price'],
+                    'sub_total' => $produk['sub_total']
+                ];
+
+
+                TransactionDetail::create($transactionDetailData);
+
+                Stock::where('menu_id', $produk['id'])->update([
+                    'jumlah' => DB::raw("jumlah - $subtractQty")
+                ]);
+
+                DB::commit();
+            } catch (\Throwable $th) {
+                DB::rollBack();
+            }
+        }
+
+
+        $this->alert('success', 'Transaksi Berhasil', [
+            'position' => 'center',
+            'toast' => true,
+            'timer' => 9999999,
+            'showConfirmButton' => true,
+            'onConfirmed' => "transactionDialogTrue",
+            'confirmButtonText' => 'Nota Faktur',
+            'showCancelButton' => true,
+            'onDismissed' => "onOk",
+            'cancelButtonText' => 'Ok',
+            'onClose' => 'onOk',
+
+        ]);
+    }
+
+
+    protected function getListeners()
+    {
+        return ['onOk' => 'redirectToIndex'];
+    }
+
+
+
+    public function redirectToIndex()
+    {
+        return redirect()->route('transaction.index');
     }
 }

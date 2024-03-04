@@ -27,7 +27,7 @@
 <div class="modal fade vh-100" wire:ignore.self id="modalCheckout" tabindex="-1" aria-labelledby="modalCheckoutLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
-        <form wire:submit="checkout">
+        <form wire:submit.prevent="checkout">
             <div class="modal-content p-3">
                 <div class="modal-header">
                     <h5 class="modal-title fs-5" id="modalCheckoutLabel">Checkout</h5>
@@ -39,13 +39,16 @@
                             No Faktur : {{ $no_faktur }}
                         </p>
                         <div class="customer">
-                            <select class="form-select form-select-sm" style="width: 250px"
-                                aria-label=".form-select-sm example">
+                            <select wire:model.lazy="customer_id" name="customer_id" style="width: 250px;"
+                                class="form-select form-select-sm @error('customer_id') is-invalid @enderror">
                                 <option selected>Pilih Customer</option>
                                 @foreach ($customers as $pelanggan)
                                     <option value="{{ $pelanggan->id }}">{{ $pelanggan->nama }}</option>
                                 @endforeach
                             </select>
+                            @error('customer_id')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -144,7 +147,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success w-100 text-center">Bayar</button>
+                    <button type="submit" class="w-100 btn btn-success">Bayar</button>
+
                 </div>
             </div>
         </form>

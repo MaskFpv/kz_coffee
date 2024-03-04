@@ -158,3 +158,10 @@
     </div>
     @include('livewire.transaction.modal')
 </div>
+
+{{-- nanti buat mengganti yang nota faktur si ehan --}}
+{{-- <script>
+    Livewire.on('postAdded', postId => {
+        alert('A post was added with the id of: ' + postId);
+    })
+    </script> --}}

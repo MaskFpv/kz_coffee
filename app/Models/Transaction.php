@@ -12,6 +12,7 @@ class Transaction extends Model
     use Searchable;
 
     protected $fillable = [
+        'id',
         'date',
         'total_price',
         'payment_method',
