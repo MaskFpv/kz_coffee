@@ -7,7 +7,11 @@ use App\Models\Customer;
 use App\Models\Menu;
 use App\Models\Stock;
 use App\Models\Type;
+use App\Models\Transaction;
+use App\Models\TransactionDetail;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use Termwind\Components\Dd;
 
@@ -27,6 +31,13 @@ class Index extends Component
 
     // Checkout
     public $total_price;
+    public $no_faktur;
+    public $date;
+    public $payment_method;
+    public $total_pembayaran;
+    public $kembalian;
+    public $keterangan;
+    public $customer_id;
 
 
     public function render()
@@ -49,7 +60,7 @@ class Index extends Component
                 ->simplePaginate(16);
         }
 
-        return view('livewire.transaction.index', compact('categories', 'menus', 'customers'));
+        return view('livewire.transaction.index', compact('categories', 'menus', 'customers', 'customers'));
     }
 
     /* --------------------------------------------------------------------------------- */
@@ -92,6 +103,7 @@ class Index extends Component
         } else {
             $data = [
                 'id' => $menu->id,
+                'photo' => $menu->photo,
                 'name' => $menu->nama,
                 'price' => $menu->harga,
                 'sub_total' => $menu->harga,
@@ -150,14 +162,18 @@ class Index extends Component
     {
         $produkIds = collect($this->produk_detail)->pluck('id');
         $index = $produkIds->search($id);
-        $this->produk_detail[$index]['quantity']--;
 
-        if ($this->produk_detail[$index]['quantity'] <= 0) {
-            unset($this->produk_detail[$index]);
-            $this->produk_detail = array_values($this->produk_detail);
-        } else {
-            $this->subTotalChange($index);
+        if ($index !== false && array_key_exists($index, $this->produk_detail)) {
+            $this->produk_detail[$index]['quantity']--;
+
+            if ($this->produk_detail[$index]['quantity'] <= 0) {
+                unset($this->produk_detail[$index]);
+                $this->produk_detail = array_values($this->produk_detail);
+            } else {
+                $this->subTotalChange($index);
+            }
         }
+        // dd($this->produk_detail);
         $this->getTotalHarga();
     }
 
@@ -174,5 +190,54 @@ class Index extends Component
         }
 
         $this->total_price = $totalPrice;
+    }
+
+    public function functionKembalian()
+    {
+
+        if ($this->total_pembayaran >= $this->total_price) {
+            $totalKembalian = $this->total_pembayaran - $this->total_price;
+            $this->kembalian = $totalKembalian;
+        } else {
+            $this->kembalian = 'Pembayaran Kurang!';
+        }
+    }
+
+    public function generateCustomId()
+    {
+        $today = now()->format('Ymd');
+        $lastCustomId = Transaction::where('date', $today)->orderBy('id', 'desc')->first();
+
+
+
+        if ($lastCustomId) {
+            $lastId = substr($lastCustomId->id, -4);
+            $newId = $today . str_pad((intval($lastId) + 1), 4, '0', STR_PAD_LEFT);
+        } else {
+            $newId = $today . '0001';
+        }
+
+        return $newId;
+    }
+
+    public function setupNoFaktur()
+    {
+
+        $this->getTotalHarga();
+
+        $no_faktur = $this->generateCustomId();
+
+        $this->no_faktur = $no_faktur;
+    }
+
+    public function kembalianGen()
+    {
+
+        if ($this->total_bayar >= $this->total_price) {
+            $totalKembalian =    $this->total_bayar - $this->total_price;
+            $this->kembalian = $totalKembalian;
+        } else {
+            $this->kembalian = 'Pembayaran Kurang!';
+        }
     }
 }
