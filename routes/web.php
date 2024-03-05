@@ -14,6 +14,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Transaction;
 
@@ -51,6 +52,7 @@ Route::prefix('/')
         Route::resource('tables', TableController::class);
         Route::resource('users', UserController::class);
         Route::resource('orders', OrderController::class);
+        Route::resource('produk-titipans', ProdukTitipanController::class);
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('transaction/invoice/{id}', [TransactionController::class, 'nota_faktur']);
     });

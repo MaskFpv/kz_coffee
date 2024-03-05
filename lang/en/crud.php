@@ -135,6 +135,23 @@ return [
             'status' => 'Status',
         ],
     ],
+
+    'produk_titipan' => [
+        'name' => 'Produk Titipan',
+        'index_title' => 'Data Produk Titipan',
+        'new_title' => 'New Produk titipan',
+        'create_title' => 'Tambah Produk Titipan',
+        'edit_title' => 'Edit Produk Titipan',
+        'show_title' => 'Show Produk Titipan',
+        'inputs' => [
+            'nama_produk' => 'Nama Produk',
+            'nama_supplier' => 'Nama Supplier',
+            'harga_beli' => 'Harga Beli',
+            'harga_jual' => 'Harga Jual',
+            'stok' => 'Stok',
+        ],
+    ],
+
     'users' => [
         'name' => 'Users',
         'index_title' => 'List User',

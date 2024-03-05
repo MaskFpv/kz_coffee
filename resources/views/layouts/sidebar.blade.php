@@ -12,7 +12,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent" data-widget="treeview" role="menu">
-
                 @auth
                     <li class="nav-item">
                         <a href="{{ route('home') }}" class="nav-link">
@@ -101,6 +100,14 @@
                                     <a href="{{ route('users.index') }}" class="nav-link">
                                         <i class="nav-icon icon ion-md-radio-button-off"></i>
                                         <p>User</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view-any', App\Models\ProdukTitipan::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('produk-titipans.index') }}" class="nav-link">
+                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                        <p>Produk Titipan</p>
                                     </a>
                                 </li>
                             @endcan
