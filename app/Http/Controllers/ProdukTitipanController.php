@@ -8,6 +8,7 @@ use App\Models\ProdukTitipan;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ProdukTitipanStoreRequest;
 use App\Http\Requests\ProdukTitipanUpdateRequest;
+use Illuminate\Http\JsonResponse;
 
 class ProdukTitipanController extends Controller
 {
@@ -84,6 +85,26 @@ class ProdukTitipanController extends Controller
             ->route('produk-titipans.index', $produkTitipan)
             ->withSuccess(__('crud.common.saved'));
     }
+
+    /**
+     * Update stok produk.
+     */
+    public function updateStok(Request $request, $id): JsonResponse
+    {
+        $request->validate([
+            'stok' => 'required|numeric',
+        ]);
+
+        $produkTitipan = ProdukTitipan::findOrFail($id);
+
+        $produkTitipan->update([
+            'stok' => $request->stok,
+        ]);
+
+        // Menggunakan pesan yang sama dengan metode update 
+        return response()->json(['message' => __('crud.common.saved')]);
+    }
+
 
     /**
      * Remove the specified resource from storage.

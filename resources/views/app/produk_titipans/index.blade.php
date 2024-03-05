@@ -31,13 +31,13 @@
                                 <th class="text-left">
                                     @lang('crud.produk_titipan.inputs.nama_supplier')
                                 </th>
-                                <th class="text-right">
+                                <th class="text-left">
                                     @lang('crud.produk_titipan.inputs.harga_beli')
                                 </th>
-                                <th class="text-right">
+                                <th class="text-left">
                                     @lang('crud.produk_titipan.inputs.harga_jual')
                                 </th>
-                                <th class="text-right">
+                                <th class="text-left">
                                     @lang('crud.produk_titipan.inputs.stok')
                                 </th>
                                 <th class="text-center">
@@ -52,19 +52,14 @@
                                     <td>{{ $produkTitipan->nama_supplier ?? '-' }}</td>
                                     <td>{{ $produkTitipan->harga_beli ?? '-' }}</td>
                                     <td>{{ $produkTitipan->harga_jual ?? '-' }}</td>
-                                    <td>{{ $produkTitipan->stok ?? '-' }}</td>
+                                    <td class="editable" data-id="{{ $produkTitipan->id }}">
+                                        {{ $produkTitipan->stok ?? '-' }}</td>
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $produkTitipan)
                                                 <a href="{{ route('produk-titipans.edit', $produkTitipan) }}">
                                                     <button type="button" class="btn btn-light">
                                                         <i class="icon ion-md-create"></i>
-                                                    </button>
-                                                </a>
-                                                @endcan @can('view', $produkTitipan)
-                                                <a href="{{ route('produk-titipans.show', $produkTitipan) }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-eye"></i>
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $produkTitipan)
@@ -100,4 +95,43 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function() {
+            // Tambahkan event listener untuk double-click pada elemen dengan kelas 'editable'
+            $('.editable').on('dblclick', function() {
+                var oldValue = $(this).text().trim();
+                var id = $(this).data('id');
+                // Ganti elemen menjadi input dengan tipe number
+                $(this).html('<input type="number" class="form-control" value="' + oldValue +
+                    '" data-id="' + id + '">');
+            });
+
+            // Tambahkan event listener untuk keypress pada elemen tabel
+            $('tbody').on('keypress', 'input[type="number"]', function(e) {
+                if (e.which == 13) {
+                    var newValue = $(this).val().trim();
+                    var id = $(this).data('id');
+                    // Update stok ke database menggunakan AJAX
+                    $.ajax({
+                        type: 'POST',
+                        url: '{{ route('produk-titipans.updateStok', ':id') }}'.replace(':id', id),
+
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            stok: newValue
+                        },
+                        success: function(response) {
+                            // Jika update berhasil, ganti input kembali menjadi teks
+                            $('td[data-id="' + id + '"]').text(newValue);
+                            alert(response.message);
+                        },
+                        error: function(xhr, status, error) {
+                            // Tampilkan pesan error jika terjadi kesalahan
+                            console.error(xhr.responseText);
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 @endsection

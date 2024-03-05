@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <div class="card p-2">
+        <div class="card p-4">
             <h4 class="card-title">
                 <a href="{{ route('produk-titipans.index') }}" class="mr-4"><i class="icon ion-md-arrow-back"></i></a>
                 @lang('crud.produk_titipan.edit_title')

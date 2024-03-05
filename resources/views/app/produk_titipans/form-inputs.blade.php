@@ -35,16 +35,13 @@
             const hargaBeli = parseFloat(hargaBeliInput.value);
             if (!isNaN(hargaBeli)) {
                 // Hitung harga jual
-                const keuntungan = hargaBeli * 0.7;
-                let hargaJual = Math.ceil((hargaBeli + keuntungan) / 500) * 500;
-
-                // Jika harga jual merupakan bilangan bulat, hilangkan angka desimal
-                if (hargaJual % 1 === 0) {
-                    hargaJual = Math.floor(hargaJual);
-                }
+                let hargaJual = hargaBeli + (hargaBeli *
+                    0.7); // Harga jual = harga beli + 70% dari harga beli
+                hargaJual = Math.floor(hargaJual / 500) *
+                    500; // Bulatkan ke kelipatan 500 yang terkecil
 
                 // Tampilkan harga jual pada input harga jual
-                hargaJualInput.value = hargaJual;
+                hargaJualInput.value = hargaJual; // Tidak perlu lagi menggunakan toFixed(2)
             }
         });
     });

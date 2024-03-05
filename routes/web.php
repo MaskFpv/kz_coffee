@@ -53,6 +53,8 @@ Route::prefix('/')
         Route::resource('users', UserController::class);
         Route::resource('orders', OrderController::class);
         Route::resource('produk-titipans', ProdukTitipanController::class);
+        Route::post('update-stok/{id}', [ProdukTitipanController::class, 'updateStok'])->name('produk-titipans.updateStok');
+
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('transaction/invoice/{id}', [TransactionController::class, 'nota_faktur']);
     });
