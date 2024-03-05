@@ -18,7 +18,7 @@
                         <a href="{{ route('home') }}" class="nav-link">
                             <i class="nav-icon icon ion-md-pulse"></i>
                             <p>
-                                Dashboard
+                                About Us
                             </p>
                         </a>
                     </li>
