@@ -98,8 +98,9 @@
                         @endforeach
                     @endif
                 </div>
-
-
+                <div class="paginate d-flex justify-content-center mt-5">
+                    {{ $menus->links() }}
+                </div>/
             </div>
             <div class="right col-lg-4">
                 <div class="card vh-100">
@@ -158,10 +159,3 @@
     </div>
     @include('livewire.transaction.modal')
 </div>
-
-{{-- nanti buat mengganti yang nota faktur si ehan --}}
-{{-- <script>
-    Livewire.on('postAdded', postId => {
-        alert('A post was added with the id of: ' + postId);
-    })
-    </script> --}}

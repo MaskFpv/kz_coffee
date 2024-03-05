@@ -60,15 +60,16 @@ class Index extends Component
         if ($this->type_id != 0) {
             $menus = Menu::where('nama', 'like', '%' . $this->search . '%')
                 ->where('type_id', $this->type_id)
-                ->simplePaginate(16);
+                ->simplePaginate(9);
         } else {
             $menus = Menu::where('nama', 'like', '%' . $this->search . '%')
                 ->with('stocks')
-                ->simplePaginate(16);
+                ->simplePaginate(9);
         }
 
         return view('livewire.transaction.index', compact('categories', 'menus', 'customers', 'customers'));
     }
+
 
     /* --------------------------------------------------------------------------------- */
 
@@ -321,13 +322,16 @@ class Index extends Component
         ]);
     }
 
-
     protected function getListeners()
     {
-        return ['onOk' => 'redirectToIndex'];
+        return ['onOk' => 'redirectToIndex', 'transactionDialogTrue' => 'transactionDialogTrue'];
     }
 
-
+    public function transactionDialogTrue()
+    {
+        $no_faktur = $this->no_faktur;
+        return redirect()->to("transaction/invoice/{$no_faktur}");
+    }
 
     public function redirectToIndex()
     {

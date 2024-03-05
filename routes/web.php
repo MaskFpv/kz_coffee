@@ -52,4 +52,5 @@ Route::prefix('/')
         Route::resource('users', UserController::class);
         Route::resource('orders', OrderController::class);
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('transaction/invoice/{id}', [TransactionController::class, 'nota_faktur']);
     });
