@@ -13,8 +13,23 @@
                             </h4>
                         </div>
                         <div class="col-md-6 text-right">
+                            <button type="button" id="export-pdf-btn" class="btn btn-danger">
+                                <a href="" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-pdf"></i>
+                                    Export PDF</a>
+                            </button>
+                            <button type="button" id="export-pdf-btn" class="btn btn-success">
+                                <a href="{{ route('produktitipans-export') }}"
+                                    style="text-decoration: none; color:azure;"><i class="bi bi-file-earmark-excel"></i>
+                                    Export XLS</a>
+                            </button>
+                            <button type="button" id="export-pdf-btn" class="btn btn-success">
+                                <a href="" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-plus"></i>
+                                    Import XLS</a>
+                            </button>
                             @can('create', App\Models\ProdukTitipan::class)
-                                <a href="{{ route('produk-titipans.create') }}" class="btn btn-primary">
+                                <a href="{{ route('produk-titipans.create') }}" class="btn btn-primary" style="width: 100px">
                                     <i class="icon ion-md-add"></i> @lang('crud.common.create')
                                 </a>
                             @endcan
@@ -96,6 +111,7 @@
         </div>
     </div>
     <script>
+        // Script for Change the Stok
         $(document).ready(function() {
             // Tambahkan event listener untuk double-click pada elemen dengan kelas 'editable'
             $('.editable').on('dblclick', function() {

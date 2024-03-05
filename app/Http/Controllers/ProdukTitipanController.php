@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ProdukTitipanExport;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use App\Models\ProdukTitipan;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\ProdukTitipanStoreRequest;
 use App\Http\Requests\ProdukTitipanUpdateRequest;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Http\JsonResponse;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ProdukTitipanController extends Controller
 {
@@ -120,5 +124,10 @@ class ProdukTitipanController extends Controller
         return redirect()
             ->route('produk-titipans.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new ProdukTitipanExport, 'Produk Titipan.xlsx');
     }
 }
