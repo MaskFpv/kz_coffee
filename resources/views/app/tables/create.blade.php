@@ -9,7 +9,9 @@
             </h4>
             <div class="card-body">
 
-                <x-form method="POST" action="{{ route('tables.store') }}" class="mt-4">
+                <form method="POST" action="{{ route('tables.store') }}" class="mt-4">
+                    @csrf
+
                     @include('app.tables.form-inputs')
 
                     <div class="mt-4">
@@ -23,7 +25,7 @@
                             @lang('crud.common.create')
                         </button>
                     </div>
-                </x-form>
+                </form>
             </div>
         </div>
     </div>

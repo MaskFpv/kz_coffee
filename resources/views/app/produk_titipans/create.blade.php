@@ -8,7 +8,9 @@
                 @lang('crud.produk_titipan.create_title')
             </h4>
             <div class="card-body">
-                <x-form method="POST" action="{{ route('produk-titipans.store') }}" class="mt-2">
+                <form method="POST" action="{{ route('produk-titipans.store') }}" class="mt-2">
+                    @csrf
+
                     @include('app.produk_titipans.form-inputs')
 
                     <div class="mt-4">
@@ -22,7 +24,7 @@
                             @lang('crud.common.create')
                         </button>
                     </div>
-                </x-form>
+                </form>
             </div>
         </div>
     </div>

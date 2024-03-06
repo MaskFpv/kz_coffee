@@ -9,7 +9,9 @@
             </h4>
             <div class="card-body">
 
-                <x-form method="PUT" action="{{ route('categories.update', $category) }}" class="mt-2">
+                <form method="PUT" action="{{ route('categories.update', $category) }}" class="mt-2">
+                    @csrf
+
                     @include('app.categories.form-inputs')
 
                     <div class="mt-4">
@@ -23,7 +25,7 @@
                             @lang('crud.common.update')
                         </button>
                     </div>
-                </x-form>
+                </form>
             </div>
         </div>
     </div>

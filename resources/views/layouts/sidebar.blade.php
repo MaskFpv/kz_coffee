@@ -26,7 +26,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon icon ion-md-apps"></i>
                             <p>
-                                Apps
+                                C.R.U.D
                                 <i class="nav-icon right icon ion-md-arrow-round-back"></i>
                             </p>
                         </a>
@@ -111,6 +111,25 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('view-any', App\Models\Transaction::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('transaction.index') }}" class="nav-link">
+                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                        <p>Transaksi</p>
+                                    </a>
+                                </li>
+                            @endcan
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon icon ion-md-basket"></i>
+                            <p>
+                                Transactions
+                                <i class="nav-icon right icon ion-md-arrow-round-back"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
                             @can('view-any', App\Models\Transaction::class)
                                 <li class="nav-item">
                                     <a href="{{ route('transaction.index') }}" class="nav-link">

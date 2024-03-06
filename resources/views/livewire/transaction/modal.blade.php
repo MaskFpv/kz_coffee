@@ -132,13 +132,14 @@
                     <div class="total d-flex  justify-content-between align-items-center">
                         <h5>Total:</h5>
                         <input type="text" hidden name="total_price" value="{{ $total_price }}">
-                        <h5>Rp. {{ $total_price }}</h5>
+                        <h5>Rp. {{ number_format($total_price, 0, ',', '.') }}</h5>
+
                     </div>
                     @if ($payment_method == 'cash')
                         <div class="total d-flex  justify-content-between align-items-center">
                             <h5>Kembalian:</h5>
                             @if (!is_string($kembalian))
-                                <h5>Rp. {{ $kembalian }}</h5>
+                                <h5>Rp. {{ number_format($kembalian, 0, ',', '.') }}</h5>
                             @else
                                 <h5 class="text-danger"> {{ $kembalian }}</h5>
                             @endif
