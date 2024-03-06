@@ -9,8 +9,9 @@
             </h4>
             <div class="card-body">
 
-                <form method="PUT" action="{{ route('types.update', $type) }}" class="mt-2">
+                <form method="POST" action="{{ route('types.update', $type) }}" class="mt-2">
                     @csrf
+                    @method('PUT')
 
                     @include('app.types.form-inputs')
 

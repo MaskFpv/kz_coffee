@@ -103,22 +103,7 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('view-any', App\Models\ProdukTitipan::class)
-                                <li class="nav-item">
-                                    <a href="{{ route('produk-titipans.index') }}" class="nav-link">
-                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Produk Titipan</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('view-any', App\Models\Transaction::class)
-                                <li class="nav-item">
-                                    <a href="{{ route('transaction.index') }}" class="nav-link">
-                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Transaksi</p>
-                                    </a>
-                                </li>
-                            @endcan
+
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -130,6 +115,14 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @can('view-any', App\Models\ProdukTitipan::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('produk-titipans.index') }}" class="nav-link">
+                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                        <p>Produk Titipan</p>
+                                    </a>
+                                </li>
+                            @endcan
                             @can('view-any', App\Models\Transaction::class)
                                 <li class="nav-item">
                                     <a href="{{ route('transaction.index') }}" class="nav-link">

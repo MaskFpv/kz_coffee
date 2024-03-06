@@ -9,8 +9,9 @@
             </h4>
             <div class="card-body">
 
-                <form method="PUT" action="{{ route('customers.update', $customer) }}" class="mt-2">
+                <form method="POST" action="{{ route('customers.update', $customer) }}" class="mt-2">
                     @csrf
+                    @method('PUT')
 
                     @include('app.customers.form-inputs')
 

@@ -60,11 +60,11 @@ class Index extends Component
         if ($this->type_id != 0) {
             $menus = Menu::where('nama', 'like', '%' . $this->search . '%')
                 ->where('type_id', $this->type_id)
-                ->simplePaginate(9);
+                ->simplePaginate(6);
         } else {
             $menus = Menu::where('nama', 'like', '%' . $this->search . '%')
                 ->with('stocks')
-                ->simplePaginate(9);
+                ->simplePaginate(6);
         }
 
         return view('livewire.transaction.index', compact('categories', 'menus', 'customers', 'customers'));
@@ -73,14 +73,14 @@ class Index extends Component
 
     /* --------------------------------------------------------------------------------- */
 
-
+    // Kategori
     public function changeCategory($id)
     {
         $this->kategori_id = $id;
         $this->type_id = 0;
     }
 
-
+    // jenis
     public function changeType($id)
     {
         $this->type_id = $id;
@@ -124,7 +124,7 @@ class Index extends Component
         $this->getTotalHarga();
     }
 
-
+    // Method menghitung jumlah subtotal dari produk_detail
     public function subTotalChange($index)
     {
 
@@ -134,11 +134,13 @@ class Index extends Component
         $this->produk_detail[$index]['sub_total'] = $price * $quantity;
     }
 
+    // Tombol hapus dari Produk Detail
     public function clearPesan()
     {
         $this->produk_detail = [];
     }
 
+    // Stok habis di produk detail
     public function hideStockMessage()
     {
         $this->reset('stokHabis');
@@ -147,6 +149,8 @@ class Index extends Component
 
     /* --------------------------------------------------------------------------------- */
 
+
+    // Menambahkan kuantitas di Produk_detail
     public function increaseQuantity($id)
     {
         $produkIds = collect($this->produk_detail)->pluck('id');
@@ -166,6 +170,8 @@ class Index extends Component
         $this->getTotalHarga();
     }
 
+
+    // Mengurangi kuantitas di produk_detail
     public function decreaseQuantity($id)
     {
         $produkIds = collect($this->produk_detail)->pluck('id');
@@ -187,6 +193,7 @@ class Index extends Component
 
     /* --------------------------------------------------------------------------------- */
 
+    // Mengambil
     public function getTotalHarga()
     {
 
@@ -200,6 +207,7 @@ class Index extends Component
         $this->total_price = $totalPrice;
     }
 
+    // Kembalian
     public function functionKembalian()
     {
 
@@ -211,6 +219,7 @@ class Index extends Component
         }
     }
 
+    // Function untuk Generate Nomor faktur
     public function generateCustomId()
     {
         $today = now()->format('Ymd');
@@ -228,6 +237,7 @@ class Index extends Component
         return $newId;
     }
 
+    // Funtion untuk memanggil Nomor Faktur
     public function setupNoFaktur()
     {
 
@@ -238,18 +248,8 @@ class Index extends Component
         $this->no_faktur = $no_faktur;
     }
 
-    public function kembalianGen()
-    {
-
-        if ($this->total_bayar >= $this->total_price) {
-            $totalKembalian =    $this->total_bayar - $this->total_price;
-            $this->kembalian = $totalKembalian;
-        } else {
-            $this->kembalian = 'Pembayaran Kurang!';
-        }
-    }
-
     /* --------------------------------------------------------------------------------- */
+
 
     // Function Checkout
     public function checkout()
@@ -322,17 +322,20 @@ class Index extends Component
         ]);
     }
 
+    // 
     protected function getListeners()
     {
         return ['onOk' => 'redirectToIndex', 'transactionDialogTrue' => 'transactionDialogTrue'];
     }
 
+    // Jika nota transaction dialog true nya di pencet
     public function transactionDialogTrue()
     {
         $no_faktur = $this->no_faktur;
         return redirect()->to("transaction/invoice/{$no_faktur}");
     }
 
+    // Return redirect setelah dari nota faktur
     public function redirectToIndex()
     {
         return redirect()->route('transaction.index');

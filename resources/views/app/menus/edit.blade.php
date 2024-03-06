@@ -10,8 +10,6 @@
             <div class="card-body">
 
                 <form method="PUT" action="{{ route('menus.update', $menu) }}" has-files class="mt-2">
-                    @csrf
-
                     @include('app.menus.form-inputs')
 
                     <div class="mt-4">

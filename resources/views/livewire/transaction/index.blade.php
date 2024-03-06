@@ -73,7 +73,7 @@
                                         style="overflow: hidden; border-radius: 10px; padding: 10px;">
                                         <img src="{{ $item->photo ? \Storage::url($item->photo) : '' }}"
                                             class="card-img-top img-fluid"
-                                            style="width: 120px; height: 120px; object-fit: cover; border-radius: 15px;"
+                                            style="width: 120px; height: 120px; object-fit: cover; border-radius: 20px; border: 4px solid #bababa;"
                                             alt="{{ $item->nama }}" />
                                     </div>
                                     {{-- judul menu --}}
@@ -100,7 +100,7 @@
                 </div>
                 <div class="paginate d-flex justify-content-center mt-5">
                     {{ $menus->links() }}
-                </div>/
+                </div>
             </div>
             <div class="right col-lg-4">
                 <div class="card vh-100">
