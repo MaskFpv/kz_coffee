@@ -12,7 +12,6 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\PemesananController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
@@ -36,7 +35,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::resource('/pemesanan', PemesananController::class);
 
 Route::prefix('/')
     ->middleware('auth')

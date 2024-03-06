@@ -1,19 +1,22 @@
-@php $editing = isset($type) @endphp
+@php $editing = isset($type); @endphp
 
 <div class="row">
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.text name="nama_jenis" label="Nama Jenis" :value="old('nama_jenis', $editing ? $type->nama_jenis : '')" maxlength="255" placeholder="Nama Jenis"
-            required></x-inputs.text>
-    </x-inputs.group>
+    <div class="col-sm-12">
+        <label for="nama_jenis" class="form-label">Nama Jenis</label>
+        <input type="text" name="nama_jenis" id="nama_jenis" class="form-control"
+            value="{{ old('nama_jenis', $editing ? $type->nama_jenis : '') }}" maxlength="255" placeholder="Nama Jenis"
+            required>
+    </div>
 
-    <x-inputs.group class="col-sm-12">
-        <x-inputs.select name="category_id" label="Kategori" required>
+    <div class="col-sm-12 mt-3">
+        <label for="category_id" class="form-label">Kategori</label>
+        <select name="category_id" id="category_id" class="form-select" required>
             @php $selected = old('category_id', ($editing ? $type->category_id : '')) @endphp
-            <option disabled {{ empty($selected) ? 'selected' : '' }}>Pilih Kategori</option>
+            <option value="" disabled {{ empty($selected) ? 'selected' : '' }}>Pilih Kategori</option>
             @foreach ($categories as $value => $label)
                 <option value="{{ $value }}" {{ $selected == $value ? 'selected' : '' }}>{{ $label }}
                 </option>
             @endforeach
-        </x-inputs.select>
-    </x-inputs.group>
+        </select>
+    </div>
 </div>
