@@ -26,7 +26,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon icon ion-md-apps"></i>
                             <p>
-                                C.R.U.D
+                                Aplikasi
                                 <i class="nav-icon right icon ion-md-arrow-round-back"></i>
                             </p>
                         </a>

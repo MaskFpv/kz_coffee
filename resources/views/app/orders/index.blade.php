@@ -67,10 +67,9 @@
                                                     </button>
                                                 </a>
                                                 @endcan @can('delete', $order)
-                                                <form action="{{ route('orders.destroy', $order) }}" method="POST"
-                                                    onsubmit="return confirm('{{ __('crud.common.are_you_sure') }}')">
+                                                <form action="{{ route('orders.destroy', $order) }}" method="POST">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger">
+                                                    <button type="button" class="btn btn-light text-danger btn-delete">
                                                         <i class="icon ion-md-trash"></i>
                                                     </button>
                                                 </form>
@@ -97,3 +96,25 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        // Sweet alert
+        $('.btn-delete').on('click', function(e) {
+            let nama_produk = $(this).closest('tr').find('td:eq(0)').text();
+            Swal.fire({
+                icon: 'error',
+                title: 'Hapus Data',
+                html: 'Apakah Yakin data Order ini akan dihapus?',
+                showCancelButton: true,
+                confirmButtonText: 'Ya',
+                denyButtonText: 'Tidak',
+                showDenyButon: true,
+                focusConfirm: false
+            }).then((result) => {
+                if (result.isConfirmed) $(e.target).closest('form').submit()
+                else swal.close()
+            })
+        })
+    </script>
+@endpush

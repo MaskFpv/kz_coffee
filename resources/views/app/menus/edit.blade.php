@@ -9,7 +9,7 @@
             </h4>
             <div class="card-body">
 
-                <form method="PUT" action="{{ route('menus.update', $menu) }}" has-files class="mt-2">
+                <x-form method="PUT" action="{{ route('menus.update', $menu) }}" has-files class="mt-2">
                     @include('app.menus.form-inputs')
 
                     <div class="mt-4">
@@ -23,7 +23,7 @@
                             @lang('crud.common.update')
                         </button>
                     </div>
-                </form>
+                </x-form>
             </div>
         </div>
     </div>
