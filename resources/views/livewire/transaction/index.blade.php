@@ -17,41 +17,46 @@
 
                 <hr>
 
-                <div class="category mt-2">
-                    <h5>Kategori</h5>
-                    <div class="d-flex justify-content-start mt-3">
-                        @foreach ($categories as $category)
-                            <span>
-                                <button wire:key='category-{{ $category->id }}'
-                                    wire:click="changeCategory({{ $category->id }})" type="button"
-                                    class="btn btn-{{ $kategori_id == $category->id ? 'primary' : 'outline-primary' }} mr-2">
-                                    {{ $category->nama }}
-                                </button>
-                            </span>
-                        @endforeach
-                    </div>
-                </div>
-                <hr>
-                <div class="type mt-3">
-                    <h5>Tipe Menu</h5>
-                    <div class="d-flex justify-content-start mt-3">
-                        @if ($types)
-                            @if ($types->isEmpty())
-                                <p class="text-danger">Jenis tidak ada</p>
-                            @else
-                                @foreach ($types as $type)
-                                    <button wire:key='type-{{ $type->id }}' type="button"
-                                        wire:click="changeType({{ $type->id }})"
-                                        class="btn btn-{{ $type_id == $type->id ? 'primary' : 'outline-primary' }} mr-2">
-                                        {{ $type->nama_jenis }}
+                <div class="d-flex justify-content-between">
+                    <div class="category mt-2">
+                        <h5>Kategori</h5>
+                        <div class="d-flex flex-wrap mt-3">
+                            @foreach ($categories as $category)
+                                <span class="mr-2">
+                                    <button wire:key='category-{{ $category->id }}'
+                                        wire:click="changeCategory({{ $category->id }})" type="button"
+                                        class="btn btn-{{ $kategori_id == $category->id ? 'primary' : 'outline-primary' }} mb-2">
+                                        {{ $category->nama }}
                                     </button>
-                                @endforeach
+                                </span>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="type mt-3">
+                        <h5>Tipe Menu</h5>
+                        <div class="d-flex flex-wrap mt-3">
+                            @if ($types)
+                                @if ($types->isEmpty())
+                                    <p class="text-danger">Jenis tidak ada</p>
+                                @else
+                                    @foreach ($types as $type)
+                                        <span class="mr-2">
+                                            <button wire:key='type-{{ $type->id }}' type="button"
+                                                wire:click="changeType({{ $type->id }})"
+                                                class="btn btn-{{ $type_id == $type->id ? 'primary' : 'outline-primary' }} mb-2">
+                                                {{ $type->nama_jenis }}
+                                            </button>
+                                        </span>
+                                    @endforeach
+                                @endif
+                            @else
+                                <p class="text-info">Pilih kategori</p>
                             @endif
-                        @else
-                            <p class="text-info">Pilih kategori</p>
-                        @endif
+                        </div>
                     </div>
                 </div>
+            
+
 
                 <hr>
                 <div class="list-menu row">

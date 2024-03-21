@@ -17,9 +17,10 @@ return [
         'back' => 'Back',
         'are_you_sure' => 'Are you sure?',
         'no_items_found' => 'No items found',
-        'created' => 'Successfully created',
-        'saved' => 'Saved successfully',
-        'removed' => 'Successfully removed',
+        'created' => 'Data Berhasil Ditambahkan',
+        'import' => 'Import Success',
+        'saved' => 'Data Tersimpan',
+        'removed' => 'Data Berhasil Dihapus',
     ],
 
     'kategori' => [

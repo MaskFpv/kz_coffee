@@ -16,6 +16,7 @@ use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
 use App\Models\Transaction;
+use Maatwebsite\Excel\Row;
 
 /*
 |--------------------------------------------------------------------------
@@ -57,6 +58,14 @@ Route::prefix('/')
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
         Route::get('transaction/invoice/{id}', [TransactionController::class, 'nota_faktur']);
 
-        // Export & import
+        // Export Excel
+        Route::get('categories-export/', [CategoryController::class, 'export'])->name('categories-export');
+        
         Route::get('produktitipans-export/', [ProdukTitipanController::class, 'export'])->name('produktitipans-export');
+
+        // Export PDF
+        Route::get('category/exportpdf', [CategoryController::class, 'exportpdf'])->name('categoires-exportPdf');
+
+        // Import
+        Route::post('categories-import/', [CategoryController::class, 'import'])->name('categories-import');
     });

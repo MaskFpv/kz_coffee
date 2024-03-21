@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CategoryExport;
 use App\Models\Category;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
+use App\Imports\CategoryImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CategoryController extends Controller
 {
@@ -103,5 +107,31 @@ class CategoryController extends Controller
         return redirect()
             ->route('categories.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new CategoryExport, 'Kategori.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $categories = Category::all();
+        $pdf = Pdf::loadView('app.categories.data', compact('categories'));
+        return $pdf->download('categories.pdf');
+    }
+
+    public function import(Request $request)
+    {
+        $file = request()->file('file');
+
+        // Check if file was uploaded
+        if (!$file) {
+            throw new \Exception('Tidak ada File');
+        }
+
+        Excel::import(new CategoryImport(), $request->file('file'));
+
+        return redirect(route('categories.index'))->withSuccess(__('crud.common.import'));
     }
 }
