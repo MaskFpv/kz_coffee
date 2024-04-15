@@ -11,13 +11,7 @@ class TransactionDetail extends Model
     use HasFactory;
     use Searchable;
 
-    protected $fillable = [
-        'menu_id',
-        'transaction_id',
-        'qty',
-        'unit_price',
-        'sub_total',
-    ];
+    protected $fillable = ['menu_id', 'transaction_id', 'qty', 'unit_price', 'sub_total'];
 
     protected $searchableFields = ['*'];
 

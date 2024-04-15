@@ -2,11 +2,11 @@
 
 namespace App\Imports;
 
-use App\Models\Category;
+use App\Models\Type;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class CategoryImport implements ToModel, WithHeadingRow
+class TypeImport implements ToModel, WithHeadingRow
 {
     /**
      * @param array $row
@@ -15,8 +15,9 @@ class CategoryImport implements ToModel, WithHeadingRow
      */
     public function model(array $row)
     {
-        return new Category([
-            'nama' => $row['nama_kategori'], // Sesuaikan kunci dengan yang ada dalam array
+        return new Type([
+            'nama_jenis' => $row['nama_jenis'],
+            'category_id' => $row['category_id'],
 
             'created_at' => now(),
             'updated_at' => now(),

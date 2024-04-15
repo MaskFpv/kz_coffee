@@ -137,6 +137,20 @@ return [
         ],
     ],
 
+    'transaction' => [
+        'name' => 'Transaksi',
+        'index_title' => 'List Transaksi',
+        'show_title' => 'Lihat Transaksi',
+        'inputs' => [
+            'id' => 'No Faktur',
+            'date' => 'Tanggal Transaksi',
+            'customer' => 'Pelanggan',
+            'total_price' => 'Total Pembayaran',
+            'payment_method' => 'Metode Pembayaran',
+            'keterangan' => 'Keterangan Pembelian',
+        ],
+    ],
+
     'produk_titipan' => [
         'name' => 'Produk Titipan',
         'index_title' => 'Data Produk Titipan',
@@ -152,6 +166,8 @@ return [
             'stok' => 'Stok',
         ],
     ],
+
+
 
     'users' => [
         'name' => 'Users',

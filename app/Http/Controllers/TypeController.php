@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TypeExport;
 use App\Models\Type;
 use App\Models\Category;
 use Illuminate\View\View;
@@ -9,6 +10,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TypeStoreRequest;
 use App\Http\Requests\TypeUpdateRequest;
+use App\Imports\TypeImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TypeController extends Controller
 {
@@ -106,5 +109,24 @@ class TypeController extends Controller
         return redirect()
             ->route('types.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new TypeExport, date('Ymd') . '__Jenis.xlsx');
+    }
+
+    public function import()
+    {
+        $file = request()->file('file');
+
+        // Check if file was uploaded
+        if (!$file) {
+            throw new \Exception('Tidak Ada File');
+        }
+
+        Excel::import(new TypeImport(), $file);
+
+        return redirect(route('types.index'))->withSuccess(__('crud.common.import'));
     }
 }

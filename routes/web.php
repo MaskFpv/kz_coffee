@@ -15,6 +15,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionDetailController;
 use App\Models\Transaction;
 use Maatwebsite\Excel\Row;
 
@@ -52,20 +53,30 @@ Route::prefix('/')
         Route::resource('users', UserController::class);
         Route::resource('orders', OrderController::class);
 
+        // latihan TO
         Route::resource('produk-titipans', ProdukTitipanController::class);
         Route::post('update-stok/{id}', [ProdukTitipanController::class, 'updateStok'])->name('produk-titipans.updateStok');
 
+
+        // Transaksi
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('transaction/index', [TransactionController::class, 'listTransaksi'])->name('transaction.data');
         Route::get('transaction/invoice/{id}', [TransactionController::class, 'nota_faktur']);
+
 
         // Export Excel
         Route::get('categories-export/', [CategoryController::class, 'export'])->name('categories-export');
-        
+        Route::get('type-export/', [TypeController::class, 'export'])->name('type-export');
+        Route::get('list-export/', [TransactionController::class, 'export'])->name('list-export');
         Route::get('produktitipans-export/', [ProdukTitipanController::class, 'export'])->name('produktitipans-export');
+
 
         // Export PDF
         Route::get('category/exportpdf', [CategoryController::class, 'exportpdf'])->name('categoires-exportPdf');
+        Route::get('transaction-list/exportpdf', [TransactionController::class, 'exportpdf'])->name('transaction-list-exportPdf');
+
 
         // Import
         Route::post('categories-import/', [CategoryController::class, 'import'])->name('categories-import');
+        Route::post('type-import/', [TypeController::class, 'import'])->name('type-import');
     });

@@ -111,7 +111,7 @@ class CategoryController extends Controller
 
     public function export()
     {
-        return Excel::download(new CategoryExport, 'Kategori.xlsx');
+        return Excel::download(new CategoryExport, date('Ymd') . '__Kategori.xlsx');
     }
 
     public function exportpdf()
@@ -123,15 +123,20 @@ class CategoryController extends Controller
 
     public function import(Request $request)
     {
-        $file = request()->file('file');
+        try {
+            $file = request()->file('file');
 
-        // Check if file was uploaded
-        if (!$file) {
-            throw new \Exception('Tidak ada File');
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new CategoryImport(), $file);
+
+            return redirect(route('categories.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        Excel::import(new CategoryImport(), $request->file('file'));
-
-        return redirect(route('categories.index'))->withSuccess(__('crud.common.import'));
     }
 }

@@ -57,6 +57,12 @@ class PermissionsSeeder extends Seeder
         Permission::create(['name' => 'update tables']);
         Permission::create(['name' => 'delete tables']);
 
+        Permission::create(['name' => 'list produktitipans']);
+        Permission::create(['name' => 'view produktitipans']);
+        Permission::create(['name' => 'create produktitipans']);
+        Permission::create(['name' => 'update produktitipans']);
+        Permission::create(['name' => 'delete produktitipans']);
+
         Permission::create(['name' => 'list transactions']);
         Permission::create(['name' => 'view transactions']);
         Permission::create(['name' => 'create transactions']);
