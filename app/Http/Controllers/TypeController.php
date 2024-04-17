@@ -121,15 +121,20 @@ class TypeController extends Controller
 
     public function import()
     {
-        $file = request()->file('file');
+        try {
+            $file = request()->file('file');
 
-        // Check if file was uploaded
-        if (!$file) {
-            throw new \Exception('Tidak Ada File');
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak Ada File');
+            }
+
+            Excel::import(new TypeImport(), $file);
+
+            return redirect(route('types.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
         }
-
-        Excel::import(new TypeImport(), $file);
-
-        return redirect(route('types.index'))->withSuccess(__('crud.common.import'));
     }
 }

@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        {{-- @if (session('error'))
+            <div id="error-message" class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif --}}
         <div class="card">
             <div class="card-body">
                 <div class="searchbar mt-4 mb-5">
@@ -10,6 +15,20 @@
                             <h4 class="card-title">@lang('crud.menu.index_title')</h4>
                         </div>
                         <div class="col-md-6 text-right">
+                            <button type="button" id="export-pdf-btn" class="btn btn-danger">
+                                <a href="{{ route('menu-exportPdf') }}" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-pdf"></i>
+                                    Export PDF</a>
+                            </button>
+                            <button type="button" id="export-pdf-btn" class="btn btn-success">
+                                <a href="{{ route('menu-export') }}" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-excel"></i>
+                                    Export XLS</a>
+                            </button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#importModal">
+                                <i class="bi bi-file-earmark-plus"></i> Import XLS
+                            </button>
                             @can('create', App\Models\Menu::class)
                                 <a href="{{ route('menus.create') }}" class="btn btn-primary">
                                     <i class="icon ion-md-add"></i>
@@ -91,10 +110,48 @@
             </div>
         </div>
     </div>
+
+    {{-- Modal unutk import nya --}}
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import File XLS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form untuk mengunggah file -->
+                    <form action="{{ route('menu-import') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Pilih File XLS:</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".xls,.xlsx"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @push('scripts')
     <script>
+        // Ambil elemen pesan error
+        var errorMessage = document.getElementById('error-message');
+
+        // Jika pesan error ada, atur waktu untuk fade out setelah 5 detik
+        if (errorMessage) {
+            setTimeout(function() {
+                errorMessage.style.transition = "opacity 1s";
+                errorMessage.style.opacity = "0";
+                setTimeout(function() {
+                    errorMessage.remove(); // Hapus elemen pesan error dari DOM setelah fade out
+                }, 1000);
+            }, 5000); // Atur waktu fade out menjadi 5 detik (5000 milidetik)
+        }
+
         // Sweet alert
         $('.btn-delete').on('click', function(e) {
             let nama_produk = $(this).closest('tr').find('td:eq(0)').text();

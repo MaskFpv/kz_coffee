@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\MenuExport;
 use App\Models\Menu;
 use App\Models\Type;
 use Illuminate\View\View;
@@ -10,6 +11,9 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\MenuStoreRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\MenuUpdateRequest;
+use App\Imports\MenuImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MenuController extends Controller
 {
@@ -119,5 +123,36 @@ class MenuController extends Controller
         return redirect()
             ->route('menus.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new MenuExport, date('Ymd') . '__Menu.xlsx');
+    }
+
+    public function import()
+    {
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new MenuImport(), $file);
+
+            return redirect(route('menus.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function exportpdf()
+    {
+        $menus = Menu::all();
+        $pdf = Pdf::loadView('app.menus.data', compact('menus'));
+        return $pdf->download('menu.pdf');
     }
 }
