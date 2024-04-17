@@ -112,11 +112,6 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="12">{!! $employees->render() !!}</td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

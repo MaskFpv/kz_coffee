@@ -20,14 +20,9 @@ class OrderController extends Controller
     {
         $this->authorize('view-any', Order::class);
 
-        $search = $request->get('search', '');
+        $orders = Order::latest()->get();
 
-        $orders = Order::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.orders.index', compact('orders', 'search'));
+        return view('app.orders.index', compact('orders'));
     }
 
     /**

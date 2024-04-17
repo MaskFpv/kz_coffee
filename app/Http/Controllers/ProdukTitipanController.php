@@ -23,7 +23,7 @@ class ProdukTitipanController extends Controller
     {
         $this->authorize('view-any', ProdukTitipan::class);
 
-        $produkTitipans = ProdukTitipan::latest()->paginate(5);
+        $produkTitipans = ProdukTitipan::latest()->get();
 
         return view('app.produk_titipans.index', compact('produkTitipans'));
     }

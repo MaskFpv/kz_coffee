@@ -86,11 +86,6 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5">{!! $menus->render() !!}</td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

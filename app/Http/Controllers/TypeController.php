@@ -22,14 +22,9 @@ class TypeController extends Controller
     {
         $this->authorize('view-any', Type::class);
 
-        $search = $request->get('search', '');
+        $types = Type::latest()->get();
 
-        $types = Type::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.types.index', compact('types', 'search'));
+        return view('app.types.index', compact('types'));
     }
 
     /**

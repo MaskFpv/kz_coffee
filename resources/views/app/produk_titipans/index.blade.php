@@ -97,13 +97,6 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="6">
-                                    {!! $produkTitipans->render() !!}
-                                </td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

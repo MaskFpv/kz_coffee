@@ -18,14 +18,9 @@ class CustomerController extends Controller
     {
         $this->authorize('view-any', Customer::class);
 
-        $search = $request->get('search', '');
+        $customers = Customer::latest()->get();
 
-        $customers = Customer::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.customers.index', compact('customers', 'search'));
+        return view('app.customers.index', compact('customers'));
     }
 
     /**

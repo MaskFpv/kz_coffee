@@ -17,13 +17,9 @@ class RoleController extends Controller
     public function index(Request $request): View
     {
         $this->authorize('list', Role::class);
+        $roles = Role::latest()->get();
 
-        $search = $request->get('search', '');
-        $roles = Role::where('name', 'like', "%{$search}%")->paginate(10);
-
-        return view('app.roles.index')
-            ->with('roles', $roles)
-            ->with('search', $search);
+        return view('app.roles.index')->with('roles', $roles);
     }
 
     /**

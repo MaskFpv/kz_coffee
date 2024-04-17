@@ -67,11 +67,6 @@
                                 </tr>
                             @endforelse
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="3">{!! $stocks->render() !!}</td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

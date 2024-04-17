@@ -69,18 +69,8 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr>
-                                    <td colspan="2">
-                                        @lang('crud.common.no_items_found')
-                                    </td>
-                                </tr>
                             @endforelse
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="2">{!! $categories->render() !!}</td>
-                            </tr>
-                        </tfoot>
                     </table>
                 </div>
             </div>

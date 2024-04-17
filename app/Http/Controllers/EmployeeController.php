@@ -19,14 +19,9 @@ class EmployeeController extends Controller
     {
         $this->authorize('view-any', Employee::class);
 
-        $search = $request->get('search', '');
+        $employees = Employee::latest()->get();
 
-        $employees = Employee::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.employees.index', compact('employees', 'search'));
+        return view('app.employees.index', compact('employees'));
     }
 
     /**

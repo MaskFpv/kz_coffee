@@ -17,12 +17,10 @@ class PermissionController extends Controller
     {
         $this->authorize('list', Permission::class);
 
-        $search = $request->get('search', '');
-        $permissions = Permission::where('name', 'like', "%{$search}%")->paginate(10);
+        $permissions = Permission::latest()->get();
 
         return view('app.permissions.index')
-            ->with('permissions', $permissions)
-            ->with('search', $search);
+            ->with('permissions', $permissions);
     }
 
     /**

@@ -19,14 +19,9 @@ class StockController extends Controller
     {
         $this->authorize('view-any', Stock::class);
 
-        $search = $request->get('search', '');
+        $stocks = Stock::latest()->get();
 
-        $stocks = Stock::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.stocks.index', compact('stocks', 'search'));
+        return view('app.stocks.index', compact('stocks'));
     }
 
     /**

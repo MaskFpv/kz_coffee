@@ -20,14 +20,9 @@ class MenuController extends Controller
     {
         $this->authorize('view-any', Menu::class);
 
-        $search = $request->get('search', '');
+        $menus = Menu::latest()->get();
 
-        $menus = Menu::search($search)
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('app.menus.index', compact('menus', 'search'));
+        return view('app.menus.index', compact('menus'));
     }
 
     /**

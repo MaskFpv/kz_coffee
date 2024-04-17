@@ -18,14 +18,9 @@ class TableController extends Controller
     {
         $this->authorize('view-any', Table::class);
 
-        $search = $request->get('search', '');
+        $tables = Table::latest()->get();
 
-        $tables = Table::search($search)
-            ->latest()
-            ->paginate(5)
-            ->withQueryString();
-
-        return view('app.tables.index', compact('tables', 'search'));
+        return view('app.tables.index', compact('tables'));
     }
 
     /**

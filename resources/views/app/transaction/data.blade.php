@@ -83,7 +83,7 @@
                         </tbody>
                     </table>
                 </div>
-                <script>
+                {{-- <script>
                     $(document).ready(function() {
                         $('#myTable').DataTable({
                             "order": [
@@ -91,7 +91,7 @@
                             ]
                         });
                     });
-                </script>
+                </script> --}}
             </div>
         </div>
     </div>
