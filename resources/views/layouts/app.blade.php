@@ -92,6 +92,19 @@
         <script src="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
         <script>
+            $('.open-invoice').click(function(e) {
+
+                console.log('Tombol invoice diklik');
+
+                let no_faktur = $(this).data('no_invoice');
+
+                window.open("/transaction/invoice/" + no_faktur, "_blank",
+                    "width=500px,height=700px");
+
+            });
+        </script>
+
+        <script>
             let table = new DataTable('#myTable');
         </script>
 

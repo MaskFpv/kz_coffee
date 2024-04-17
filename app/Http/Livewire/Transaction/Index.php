@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 use Termwind\Components\Dd;
 use Mockery\Undefined;
 use PHPUnit\TestRunner\TestResult\Collector;
@@ -22,7 +23,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 class Index extends Component
 {
     use LivewireAlert;
-
+    use WithPagination;
 
     // Menu List
     public Collection $types;

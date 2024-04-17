@@ -69,7 +69,7 @@
                                                         <i class="icon ion-md-eye"></i>
                                                     </button>
                                                 </a>
-                                                <a class="buka-invoice" data-no_invoice="{{ $transaction->id ?? '' }}">
+                                                <a class="open-invoice" data-no_invoice="{{ $transaction->id ?? '' }}">
                                                     <button type="button" class="btn btn-light">
                                                         <i class="bi bi-receipt"></i>
                                                     </button>
