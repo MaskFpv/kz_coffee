@@ -11,6 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TypeStoreRequest;
 use App\Http\Requests\TypeUpdateRequest;
 use App\Imports\TypeImport;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
 class TypeController extends Controller
@@ -104,6 +105,13 @@ class TypeController extends Controller
         return redirect()
             ->route('types.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function exportpdf()
+    {
+        $types = Type::all();
+        $pdf = Pdf::loadView('app.types.data', compact('types'));
+        return $pdf->download('type.pdf');
     }
 
     public function export()

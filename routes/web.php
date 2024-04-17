@@ -73,6 +73,7 @@ Route::prefix('/')
 
         // Export PDF
         Route::get('category/exportpdf', [CategoryController::class, 'exportpdf'])->name('categoires-exportPdf');
+        Route::get('type/exportpdf', [TypeController::class, 'exportpdf'])->name('type-exportPdf');
         Route::get('transaction-list/exportpdf', [TransactionController::class, 'exportpdf'])->name('transaction-list-exportPdf');
 
 

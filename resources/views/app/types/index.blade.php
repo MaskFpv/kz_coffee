@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-md-6 text-right">
                             <button type="button" id="export-pdf-btn" class="btn btn-danger">
-                                <a href="" style="text-decoration: none; color:azure;"><i
+                                <a href="{{ route('type-exportPdf') }}" style="text-decoration: none; color:azure;"><i
                                         class="bi bi-file-earmark-pdf"></i>
                                     Export PDF</a>
                             </button>
