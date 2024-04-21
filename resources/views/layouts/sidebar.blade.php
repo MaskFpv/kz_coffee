@@ -1,5 +1,5 @@
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-light-primary elevation-4">
+<aside class="main-sidebar sidebar-dark elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
         <span class="brand-text font-weight-light px-4" style="font-size: 1.1em;">KZ Coffee</span>

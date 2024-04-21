@@ -50,11 +50,28 @@
 
     <style>
         html {
-            background-color: #f4f6f9;
+            background-color: #f6f6f6;
         }
 
         .nav-icon.icon:before {
             width: 25px;
+        }
+
+        .navbar {
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: #ffffff;
+        }
+
+        .main-sidebar {
+            background-color: #1987ac;
+        }
+
+        .nav-sidebar .nav-link {
+            color: #e8e8e8;
+        }
+
+        .nav-sidebar .nav-link:hover {
+            color: #72bae1 !important;
         }
     </style>
 
@@ -72,7 +89,7 @@
 
             @include('layouts.sidebar')
 
-            <main class="content-wrapper p-5">
+            <main class="content-wrapper py-5">
                 @yield('content')
             </main>
         </div>

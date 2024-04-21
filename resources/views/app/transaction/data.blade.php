@@ -70,7 +70,8 @@
                                                     </button>
                                                 </a>
                                                 <a class="open-invoice" data-no_invoice="{{ $transaction->id ?? '' }}">
-                                                    <button type="button" class="btn btn-light">
+                                                    <button type="button" class="btn btn-dark"
+                                                        style="background-color: #898193">
                                                         <i class="bi bi-receipt"></i>
                                                     </button>
                                                 </a>
