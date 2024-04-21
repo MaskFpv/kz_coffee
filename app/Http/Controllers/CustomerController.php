@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerExport;
 use App\Models\Customer;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Http\Requests\CustomerUpdateRequest;
+use App\Imports\CustomerImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -98,5 +102,36 @@ class CustomerController extends Controller
         return redirect()
             ->route('customers.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new CustomerExport, date('Ymd') . '__Pelanggan.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $customers = Customer::all();
+        $pdf = Pdf::loadView('app.customers.data', compact('customers'));
+        return $pdf->download('customers.pdf');
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new CustomerImport(), $file);
+
+            return redirect(route('customers.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

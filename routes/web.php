@@ -68,6 +68,7 @@ Route::prefix('/')
         Route::get('categories-export/', [CategoryController::class, 'export'])->name('categories-export');
         Route::get('type-export/', [TypeController::class, 'export'])->name('type-export');
         Route::get('menu-export/', [MenuController::class, 'export'])->name('menu-export');
+        Route::get('customer-export/', [CustomerController::class, 'export'])->name('customer-export');
         Route::get('list-export/', [TransactionController::class, 'export'])->name('list-export');
         Route::get('produktitipans-export/', [ProdukTitipanController::class, 'export'])->name('produktitipans-export');
 
@@ -76,6 +77,7 @@ Route::prefix('/')
         Route::get('category/exportpdf', [CategoryController::class, 'exportpdf'])->name('categoires-exportPdf');
         Route::get('type/exportpdf', [TypeController::class, 'exportpdf'])->name('type-exportPdf');
         Route::get('menu/exportpdf', [MenuController::class, 'exportpdf'])->name('menu-exportPdf');
+        Route::get('customer/exportpdf', [CustomerController::class, 'exportpdf'])->name('customer-exportPdf');
         Route::get('transaction-list/exportpdf', [TransactionController::class, 'exportpdf'])->name('transaction-list-exportPdf');
 
 
@@ -83,4 +85,5 @@ Route::prefix('/')
         Route::post('categories-import/', [CategoryController::class, 'import'])->name('categories-import');
         Route::post('type-import/', [TypeController::class, 'import'])->name('type-import');
         Route::post('menu-import/', [MenuController::class, 'import'])->name('menu-import');
+        Route::post('customer-import/', [CustomerController::class, 'import'])->name('customer-import');
     });
