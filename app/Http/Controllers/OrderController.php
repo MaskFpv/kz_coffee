@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\OrderExport;
 use App\Models\Order;
 use App\Models\Table;
 use App\Models\Customer;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\OrderStoreRequest;
 use App\Http\Requests\OrderUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class OrderController extends Controller
 {
@@ -104,5 +107,17 @@ class OrderController extends Controller
         return redirect()
             ->route('orders.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new OrderExport, date('Ymd') . '__Order.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $orders = Order::all();
+        $pdf = Pdf::loadView('app.orders.data', compact('orders'));
+        return $pdf->download('order.pdf');
     }
 }

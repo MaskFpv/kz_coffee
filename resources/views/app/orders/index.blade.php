@@ -10,6 +10,16 @@
                             <h4 class="card-title">@lang('crud.orders.index_title')</h4>
                         </div>
                         <div class="col-md-6 text-right">
+                            <button type="button" id="export-pdf-btn" class="btn btn-danger">
+                                <a href="{{ route('order-exportPdf') }}" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-pdf"></i>
+                                    Export PDF</a>
+                            </button>
+                            <button type="button" id="export-pdf-btn" class="btn btn-success">
+                                <a href="{{ route('order-export') }}" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-excel"></i>
+                                    Export XLS</a>
+                            </button>
                             @can('create', App\Models\Order::class)
                                 <a href="{{ route('orders.create') }}" class="btn btn-primary" style="width: 100px">
                                     <i class="icon ion-md-add"></i>

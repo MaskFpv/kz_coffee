@@ -72,6 +72,8 @@ Route::prefix('/')
         Route::get('table-export/', [TableController::class, 'export'])->name('table-export');
         Route::get('stock-export/', [StockController::class, 'export'])->name('stock-export');
         Route::get('list-export/', [TransactionController::class, 'export'])->name('list-export');
+        Route::get('order-export/', [OrderController::class, 'export'])->name('order-export');
+        Route::get('user-export/', [UserController::class, 'export'])->name('user-export');
         Route::get('produktitipans-export/', [ProdukTitipanController::class, 'export'])->name('produktitipans-export');
 
 
@@ -82,6 +84,8 @@ Route::prefix('/')
         Route::get('customer/exportpdf', [CustomerController::class, 'exportpdf'])->name('customer-exportPdf');
         Route::get('table/exportpdf', [TableController::class, 'exportpdf'])->name('table-exportPdf');
         Route::get('stock/exportpdf', [StockController::class, 'exportpdf'])->name('stock-exportPdf');
+        Route::get('order/exportpdf', [OrderController::class, 'exportpdf'])->name('order-exportPdf');
+        Route::get('user/exportpdf', [UserController::class, 'exportpdf'])->name('user-exportPdf');
         Route::get('transaction-list/exportpdf', [TransactionController::class, 'exportpdf'])->name('transaction-list-exportPdf');
 
 

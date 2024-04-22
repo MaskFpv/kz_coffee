@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UserExport;
 use App\Models\User;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -117,5 +120,17 @@ class UserController extends Controller
         return redirect()
             ->route('users.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new UserExport, date('Ymd') . '__User.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $users = User::all();
+        $pdf = Pdf::loadView('app.users.data', compact('users'));
+        return $pdf->download('user.pdf');
     }
 }

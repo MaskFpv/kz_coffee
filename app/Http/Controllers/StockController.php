@@ -115,7 +115,7 @@ class StockController extends Controller
     public function exportpdf()
     {
         $stocks = Stock::all();
-        $pdf = Pdf::loadView('app.tables.data', compact('stocks'));
+        $pdf = Pdf::loadView('app.stocks.data', compact('stocks'));
         return $pdf->download('stock.pdf');
     }
 
@@ -131,7 +131,7 @@ class StockController extends Controller
 
             Excel::import(new StockImport(), $file);
 
-            return redirect(route('stock.index'))->withSuccess(__('crud.common.import'));
+            return redirect(route('stocks.index'))->withSuccess(__('crud.common.import'));
         } catch (\Exception $e) {
             // Handle any exceptions that occurred during the import process
             return redirect()->back()->with('error', $e->getMessage());

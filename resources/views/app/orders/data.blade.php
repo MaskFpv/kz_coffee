@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tabel Stock</title>
+    <title>Tabel Order</title>
     <style>
         .table {
             border-collapse: collapse;
@@ -30,22 +30,30 @@
 </head>
 
 <body>
-    <h2 class="title">Tabel Stock</h2>
+    <h2 class="title">Tabel Order</h2>
     <table class="table table-striped">
         <thead>
             <th>No</th>
-            <th>Stok</th>
-            <th>Menu</th>
+            <th>Jumlah Pelanggan</th>
+            <th>Customer</th>
+            <th>Nama Pemesan</th>
+            <th>Meja</th>
+            <th>Hari Pesan</th>
+            <th>Status</th>
         </thead>
         <tbody>
             @php
                 $counter = 1;
             @endphp
-            @foreach ($stocks as $s)
+            @foreach ($orders as $s)
                 <tr>
                     <td>{{ $counter++ }}</td>
-                    <td>{{ $s->jumlah }}</td>
-                    <td>{{ $s->table->nomor_ }}</td>
+                    <td>{{ $s->jumlah_pelanggan }}</td>
+                    <td>{{ $s->customer->nama }}</td>
+                    <td>{{ $s->nama_pemesan }}</td>
+                    <td>{{ $s->customer->nama }}</td>
+                    <td>{{ $s->hari_pesan }}</td>
+                    <td>{{ $s->status }}</td>
                 </tr>
             @endforeach
         </tbody>
