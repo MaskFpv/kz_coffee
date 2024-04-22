@@ -10,8 +10,22 @@
                             <h4 class="card-title">@lang('crud.stok.index_title')</h4>
                         </div>
                         <div class="col-md-6 text-right">
+                            <button type="button" id="export-pdf-btn" class="btn btn-danger">
+                                <a href="{{ route('stock-exportPdf') }}" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-pdf"></i>
+                                    Export PDF</a>
+                            </button>
+                            <button type="button" id="export-pdf-btn" class="btn btn-success">
+                                <a href="{{ route('stock-export') }}" style="text-decoration: none; color:azure;"><i
+                                        class="bi bi-file-earmark-excel"></i>
+                                    Export XLS</a>
+                            </button>
+                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#importModal">
+                                <i class="bi bi-file-earmark-plus"></i> Import XLS
+                            </button>
                             @can('create', App\Models\Stock::class)
-                                <a href="{{ route('stocks.create') }}" class="btn btn-primary">
+                                <a href="{{ route('stocks.create') }}" class="btn btn-primary" style="width: 100px">
                                     <i class="icon ion-md-add"></i>
                                     @lang('crud.common.create')
                                 </a>
@@ -68,6 +82,29 @@
                             @endforelse
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- Modal unutk import nya --}}
+    <div class="modal fade" id="importModal" tabindex="-1" aria-labelledby="importModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="importModalLabel">Import File XLS</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!-- Form untuk mengunggah file -->
+                    <form action="{{ route('stock-import') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="file" class="form-label">Pilih File XLS:</label>
+                            <input type="file" class="form-control" id="file" name="file" accept=".xls,.xlsx"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Import</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-md-6 text-right">
                             @can('create', App\Models\Role::class)
-                                <a href="{{ route('roles.create') }}" class="btn btn-primary">
+                                <a href="{{ route('roles.create') }}" class="btn btn-primary" style="width: 100px">
                                     <i class="icon ion-md-add"></i> @lang('crud.common.create')
                                 </a>
                             @endcan

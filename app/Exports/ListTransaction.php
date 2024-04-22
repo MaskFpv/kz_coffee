@@ -20,9 +20,9 @@ class ListTransaction implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return Transaction::orderBy('id', 'desc')->get()->map(function ($transaction) {
             return [
-                'No Faktur' => $transaction->id,
+                'No Faktur' => "'" . $transaction->id,
                 'Tanggal Transaksi' => $transaction->date,
-                'Pelanggan' => $transaction->customer->name,
+                'Pelanggan' => $transaction->customer->nama,
                 'Metode Pembayaran' => $transaction->payment_method,
                 'Keterangan Pembelian' => $transaction->keterangan,
                 'Total Pembayaran' => $transaction->total_price,
@@ -37,6 +37,9 @@ class ListTransaction implements FromCollection, WithHeadings, ShouldAutoSize, W
     {
         return [
             AfterSheet::class => function (AfterSheet $event) {
+                // Atur kolom nomor faktur sebagai teks
+                $event->sheet->getStyle('A')->getNumberFormat()->setFormatCode(\PhpOffice\PhpSpreadsheet\Style\NumberFormat::FORMAT_TEXT);
+
                 $event->sheet->getColumnDimension('A')->setWidth(15); // No Faktur
                 $event->sheet->getColumnDimension('B')->setAutoSize(True); // Tanggal Transaksi
                 $event->sheet->getColumnDimension('C')->setAutoSize(True); // Pelanggan

@@ -89,7 +89,7 @@
 
             @include('layouts.sidebar')
 
-            <main class="content-wrapper py-5">
+            <main class="content-wrapper p-5">
                 @yield('content')
             </main>
         </div>

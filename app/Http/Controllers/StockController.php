@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StockExport;
 use App\Models\Menu;
 use App\Models\Stock;
 use Illuminate\View\View;
@@ -9,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\StockStoreRequest;
 use App\Http\Requests\StockUpdateRequest;
+use App\Imports\StockImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StockController extends Controller
 {
@@ -101,5 +105,36 @@ class StockController extends Controller
         return redirect()
             ->route('stocks.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new StockExport, date('Ymd') . '__Stok.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $stocks = Stock::all();
+        $pdf = Pdf::loadView('app.tables.data', compact('stocks'));
+        return $pdf->download('stock.pdf');
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new StockImport(), $file);
+
+            return redirect(route('stock.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

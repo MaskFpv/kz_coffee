@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TableExport;
 use App\Models\Table;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\TableStoreRequest;
 use App\Http\Requests\TableUpdateRequest;
+use App\Imports\TableImport;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TableController extends Controller
 {
@@ -96,5 +100,36 @@ class TableController extends Controller
         return redirect()
             ->route('tables.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new TableExport, date('Ymd') . '__Meja.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $tables = Table::all();
+        $pdf = Pdf::loadView('app.tables.data', compact('tables'));
+        return $pdf->download('tables.pdf');
+    }
+
+    public function import(Request $request)
+    {
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new TableImport(), $file);
+
+            return redirect(route('tables.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

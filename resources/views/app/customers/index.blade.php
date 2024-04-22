@@ -25,7 +25,7 @@
                                 <i class="bi bi-file-earmark-plus"></i> Import XLS
                             </button>
                             @can('create', App\Models\Customer::class)
-                                <a href="{{ route('customers.create') }}" class="btn btn-primary">
+                                <a href="{{ route('customers.create') }}" class="btn btn-primary" style="width: 100px">
                                     <i class="icon ion-md-add"></i>
                                     @lang('crud.common.create')
                                 </a>
