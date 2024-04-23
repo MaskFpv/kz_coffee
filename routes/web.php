@@ -78,6 +78,8 @@ Route::prefix('/')
         Route::get('user-export/', [UserController::class, 'export'])->name('user-export');
         Route::get('produktitipans-export/', [ProdukTitipanController::class, 'export'])->name('produktitipans-export');
 
+        Route::get('absensi-export/', [AbsensiController::class, 'export'])->name('absensi-export');
+
 
         // Export PDF
         Route::get('category/exportpdf', [CategoryController::class, 'exportpdf'])->name('categoires-exportPdf');
@@ -88,6 +90,7 @@ Route::prefix('/')
         Route::get('stock/exportpdf', [StockController::class, 'exportpdf'])->name('stock-exportPdf');
         Route::get('order/exportpdf', [OrderController::class, 'exportpdf'])->name('order-exportPdf');
         Route::get('user/exportpdf', [UserController::class, 'exportpdf'])->name('user-exportPdf');
+        Route::get('absensi/exportpdf', [AbsensiController::class, 'exportpdf'])->name('absensi-exportPdf');
         Route::get('transaction-list/exportpdf', [TransactionController::class, 'exportpdf'])->name('transaction-list-exportPdf');
 
 

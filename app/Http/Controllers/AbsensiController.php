@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\AbsensiExport;
 use App\Models\Absensi;
 use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\AbsensiStoreRequest;
 use App\Http\Requests\AbsensiUpdateRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AbsensiController extends Controller
 {
@@ -98,5 +101,17 @@ class AbsensiController extends Controller
         return redirect()
             ->route('absensis.index')
             ->withSuccess(__('crud.common.removed'));
+    }
+
+    public function export()
+    {
+        return Excel::download(new AbsensiExport, date('Ymd') . '__Abensi.xlsx');
+    }
+
+    public function exportpdf()
+    {
+        $absensis = Absensi::all();
+        $pdf = Pdf::loadView('app.absensis.data', compact('absensis'));
+        return $pdf->download('absensi.pdf');
     }
 }
