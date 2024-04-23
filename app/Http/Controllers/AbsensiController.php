@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Requests\AbsensiStoreRequest;
 use App\Http\Requests\AbsensiUpdateRequest;
+use App\Imports\AbsensiImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -113,5 +114,24 @@ class AbsensiController extends Controller
         $absensis = Absensi::all();
         $pdf = Pdf::loadView('app.absensis.data', compact('absensis'));
         return $pdf->download('absensi.pdf');
+    }
+
+    public function import()
+    {
+        try {
+            $file = request()->file('file');
+
+            // Check if file was uploaded
+            if (!$file) {
+                throw new \Exception('Tidak ada File');
+            }
+
+            Excel::import(new AbsensiImport(), $file);
+
+            return redirect(route('absensis.index'))->withSuccess(__('crud.common.import'));
+        } catch (\Exception $e) {
+            // Handle any exceptions that occurred during the import process
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 }

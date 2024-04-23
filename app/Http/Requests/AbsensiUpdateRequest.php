@@ -24,7 +24,7 @@ class AbsensiUpdateRequest extends FormRequest
             'tanggal_masuk' => ['required', 'date'],
             'waktu_masuk' => ['required', 'date_format:H:i:s'],
             'status' => ['required', 'in:masuk,sakit,cuti'],
-            'waktu_keluar' => ['required', 'date_format:H:i:s'],
+            'waktu_keluar' => ['date_format:H:i:s'],
         ];
     }
 }

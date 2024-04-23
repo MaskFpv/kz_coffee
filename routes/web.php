@@ -56,6 +56,7 @@ Route::prefix('/')
 
         // latihan TO
         Route::resource('absensis', AbsensiController::class);
+        Route::put('absensis/{absensi}', [AbsensiController::class, 'update'])->name('absensis.update');
         Route::resource('produk-titipans', ProdukTitipanController::class);
         Route::post('update-stok/{id}', [ProdukTitipanController::class, 'updateStok'])->name('produk-titipans.updateStok');
 
@@ -101,4 +102,5 @@ Route::prefix('/')
         Route::post('table-import/', [TableController::class, 'import'])->name('table-import');
         Route::post('stock-import/', [StockController::class, 'import'])->name('stock-import');
         Route::post('customer-import/', [CustomerController::class, 'import'])->name('customer-import');
+        Route::post('absensi-import/', [AbsensiController::class, 'import'])->name('absensi-import');
     });
