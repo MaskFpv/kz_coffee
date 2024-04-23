@@ -167,7 +167,22 @@ return [
         ],
     ],
 
+    'absensis' => [
+        'name' => 'Absensis',
+        'index_title' => 'Absensi Kerja Karyawan',
+        'new_title' => 'New Absensi',
+        'create_title' => 'Tambah Absensi',
+        'edit_title' => 'Edit Absensi',
+        'show_title' => 'Show Absensi',
+        'inputs' => [
+            'nama_karyawan' => 'Nama Karyawan',
+            'tanggal_masuk' => 'Tanggal Masuk',
 
+            'waktu_masuk' => 'Waktu Masuk',
+            'status' => 'Status',
+            'waktu_keluar' => 'Waktu Keluar',
+        ],
+    ],
 
     'users' => [
         'name' => 'Users',

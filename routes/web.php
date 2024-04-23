@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AbsensiController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TypeController;
@@ -54,6 +55,7 @@ Route::prefix('/')
         Route::resource('orders', OrderController::class);
 
         // latihan TO
+        Route::resource('absensis', AbsensiController::class);
         Route::resource('produk-titipans', ProdukTitipanController::class);
         Route::post('update-stok/{id}', [ProdukTitipanController::class, 'updateStok'])->name('produk-titipans.updateStok');
 

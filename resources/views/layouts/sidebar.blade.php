@@ -143,6 +143,14 @@
                                     </a>
                                 </li>
                             @endcan
+                            @can('view-any', App\Models\Absensi::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('absensis.index') }}" class="nav-link">
+                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                        <p>Absensi Kerja</p>
+                                    </a>
+                                </li>
+                            @endcan
                         </ul>
                     </li>
 
