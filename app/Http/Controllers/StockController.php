@@ -49,11 +49,19 @@ class StockController extends Controller
 
         $validated = $request->validated();
 
+        // Check if menu with the given ID already exists in the stocks table
+        $existingStock = Stock::where('menu_id', $validated['menu_id'])->first();
+
+        if ($existingStock) {
+            // Jika menu sudah ada, berikan pesan error dan redirect kembali ke halaman sebelumnya
+            return redirect()->route('stocks.index')->withErrors(__('crud.common.ada'));
+        }
+
         $stock = Stock::create($validated);
 
         return redirect()
             ->route('stocks.index', $stock)
-            ->withSuccess(__('crud.common.created'));
+            ->with('success', 'Stok berhasil ditambahkan.');
     }
 
     /**
@@ -85,6 +93,18 @@ class StockController extends Controller
         $this->authorize('update', $stock);
 
         $validated = $request->validated();
+
+        // Check if menu with the updated ID already exists in the stocks table
+        $existingStock = Stock::where('menu_id', $validated['menu_id'])
+            ->where('id', '!=', $stock->id) // Exclude the current stock being updated
+            ->first();
+
+        if ($existingStock) {
+            // If menu already exists, give an error message and redirect back
+            return redirect()
+                ->route('stocks.index')
+                ->withErrors(__('crud.common.ada'));
+        }
 
         $stock->update($validated);
 

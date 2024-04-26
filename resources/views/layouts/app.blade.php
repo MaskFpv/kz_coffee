@@ -141,6 +141,17 @@
             </script>
         @endif
 
+        @if ($errors->any())
+            <script>
+                var notyf = new Notyf({
+                    dismissible: true
+                });
+                @foreach ($errors->all() as $error)
+                    notyf.error('{{ $error }}');
+                @endforeach
+            </script>
+        @endif
+
         <script>
             /* Simple Alpine Image Viewer */
             document.addEventListener('DOMContentLoaded', function() {

@@ -18,6 +18,7 @@ return [
         'are_you_sure' => 'Are you sure?',
         'no_items_found' => 'No items found',
         'created' => 'Data Berhasil Ditambahkan',
+        'ada' => 'Data Sudah Ada',
         'import' => 'Import Success',
         'saved' => 'Data Tersimpan',
         'removed' => 'Data Berhasil Dihapus',
