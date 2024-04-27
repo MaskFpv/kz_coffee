@@ -4,9 +4,10 @@
     <div class="col-sm-12">
         <label for="jumlah" class="form-label">Stok</label>
         <input type="number" name="jumlah" id="jumlah" class="form-control"
-            value="{{ old('jumlah', $editing ? $stock->jumlah : '') }}" max="255"
+            value="{{ old('jumlah', $editing ? $stock->jumlah : '') }}" min="0" max="255"
             placeholder="Masukkan stok menu yang tersedia" required>
     </div>
+
 
     <div class="col-sm-12 mt-3">
         <label for="menu_id" class="form-label">Menu</label>
