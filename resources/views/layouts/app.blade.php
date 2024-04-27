@@ -57,21 +57,27 @@
             width: 25px;
         }
 
+        .btn.btn-primary {
+            background-color: #2e558f !important;
+            color: #ffffff;
+            /* Warna teks sesuaikan dengan kebutuhan */
+        }
+
         .navbar {
             box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
             background-color: #ffffff;
         }
 
         .main-sidebar {
-            background-color: #1987ac;
+            background-color: #17386a;
         }
 
         .nav-sidebar .nav-link {
-            color: #e8e8e8;
+            color: #f1e9de;
         }
 
         .nav-sidebar .nav-link:hover {
-            color: #72bae1 !important;
+            color: #c4baaf !important;
         }
     </style>
 

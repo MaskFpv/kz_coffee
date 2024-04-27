@@ -2,9 +2,11 @@
 <aside class="main-sidebar sidebar-dark elevation-4">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
-        <span class="brand-text font-weight-light px-4" style="font-size: 1.1em;">KZ Coffee</span>
-
+        <img src="{{ asset('logo.png') }}" alt="Logo" class="brand-image img-circle elevation-3"
+            style="width:35px; height: 35px;">
+        <span class="brand-text font-weight-light px-2" style="font-size: 1.1em;">KZ Coffee</span>
     </a>
+
 
     <!-- Sidebar -->
     <div class="sidebar">

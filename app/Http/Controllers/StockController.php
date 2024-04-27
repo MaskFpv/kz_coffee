@@ -13,6 +13,7 @@ use App\Http\Requests\StockUpdateRequest;
 use App\Imports\StockImport;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -34,6 +35,11 @@ class StockController extends Controller
     public function create(Request $request): View
     {
         $this->authorize('create', Stock::class);
+
+        // // Mengambil semua menu yang belum memiliki stok
+        // $menus = Menu::whereNotIn('id', function ($query) {
+        //     $query->select('menu_id')->from('stocks');
+        // })->pluck('nama', 'id');
 
         $menus = Menu::pluck('nama', 'id');
 
@@ -77,6 +83,12 @@ class StockController extends Controller
     public function edit(Request $request, Stock $stock): View
     {
         $this->authorize('update', $stock);
+
+        // // Mengambil semua menu yang belum memiliki stok atau memiliki stok yang sama dengan yang sedang diedit
+        // $menus = Menu::whereNotIn('id', function ($query) use ($stock) {
+        //     $query->select('menu_id')->from('stocks')->where('id', '!=', $stock->id);
+        // })->pluck('nama', 'id');
+
 
         $menus = Menu::pluck('nama', 'id');
 

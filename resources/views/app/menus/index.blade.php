@@ -128,6 +128,9 @@
                             <input type="file" class="form-control" id="file" name="file" accept=".xls,.xlsx"
                                 required>
                         </div>
+                        <p>Tidak punya format nya? <a href="{{ asset('import/import-menu.xlsx') }}" download="">Download
+                                Import
+                                Excel</a></p>
                         <button type="submit" class="btn btn-primary">Import</button>
                     </form>
                 </div>
