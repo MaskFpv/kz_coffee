@@ -2,11 +2,11 @@
 
 @section('content')
     <div class="container">
-        {{-- @if (session('error'))
+        @if (session('error'))
             <div id="error-message" class="alert alert-danger">
                 {{ session('error') }}
             </div>
-        @endif --}}
+        @endif
         <div class="card">
             <div class="card-body">
                 <div class="searchbar mt-4 mb-5">
@@ -25,11 +25,12 @@
                                         class="bi bi-file-earmark-excel"></i>
                                     Export XLS</a>
                             </button>
-                            <button type="button" class="btn btn-success" data-bs-toggle="modal"
-                                data-bs-target="#importModal">
-                                <i class="bi bi-file-earmark-plus"></i> Import XLS
-                            </button>
                             @can('create', App\Models\Menu::class)
+                                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                    data-bs-target="#importModal">
+                                    <i class="bi bi-file-earmark-plus"></i> Import XLS
+                                </button>
+
                                 <a href="{{ route('menus.create') }}" class="btn btn-primary" style="width: 100px">
                                     <i class="icon ion-md-add"></i>
                                     @lang('crud.common.create')
@@ -98,11 +99,6 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr>
-                                    <td colspan="5">
-                                        @lang('crud.common.no_items_found')
-                                    </td>
-                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -154,23 +150,5 @@
                 }, 1000);
             }, 5000); // Atur waktu fade out menjadi 5 detik (5000 milidetik)
         }
-
-        // Sweet alert
-        $('.btn-delete').on('click', function(e) {
-            let nama_produk = $(this).closest('tr').find('td:eq(0)').text();
-            Swal.fire({
-                icon: 'error',
-                title: 'Hapus Data',
-                html: 'Apakah Yakin data Menu ini akan dihapus?',
-                showCancelButton: true,
-                confirmButtonText: 'Ya',
-                denyButtonText: 'Tidak',
-                showDenyButon: true,
-                focusConfirm: false
-            }).then((result) => {
-                if (result.isConfirmed) $(e.target).closest('form').submit()
-                else swal.close()
-            })
-        })
     </script>
 @endpush

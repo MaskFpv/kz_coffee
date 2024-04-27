@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('error'))
+            <div id="error-message" class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <div class="searchbar mt-4 mb-5">
@@ -46,7 +51,7 @@
                                                 @endcan @can('delete', $permission)
                                                 <form action="{{ route('permissions.destroy', $permission) }}" method="POST">
                                                     @csrf @method('DELETE')
-                                                    <button type="submit" class="btn btn-light text-danger btn-delete">
+                                                    <button type="button" class="btn btn-light text-danger btn-delete">
                                                         <i class="icon ion-md-trash"></i>
                                                     </button>
                                                 </form>

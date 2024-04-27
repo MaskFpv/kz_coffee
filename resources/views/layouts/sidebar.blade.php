@@ -120,41 +120,44 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon icon ion-md-apps"></i>
-                            <p>
-                                Latihan & TO
-                                <i class="nav-icon right icon ion-md-arrow-round-back"></i>
-                            </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            @can('view-any', App\Models\Employee::class)
-                                <li class="nav-item">
-                                    <a href="{{ route('employees.index') }}" class="nav-link">
-                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Karyawan</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('view-any', App\Models\ProdukTitipan::class)
-                                <li class="nav-item">
-                                    <a href="{{ route('produk-titipans.index') }}" class="nav-link">
-                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Produk Titipan</p>
-                                    </a>
-                                </li>
-                            @endcan
-                            @can('view-any', App\Models\Absensi::class)
-                                <li class="nav-item">
-                                    <a href="{{ route('absensis.index') }}" class="nav-link">
-                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Absensi Kerja</p>
-                                    </a>
-                                </li>
-                            @endcan
-                        </ul>
-                    </li>
+                    @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
+                            Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon icon ion-md-apps"></i>
+                                <p>
+                                    Latihan & TO
+                                    <i class="nav-icon right icon ion-md-arrow-round-back"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                @can('view-any', App\Models\Employee::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('employees.index') }}" class="nav-link">
+                                            <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                            <p>Karyawan</p>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('view-any', App\Models\ProdukTitipan::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('produk-titipans.index') }}" class="nav-link">
+                                            <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                            <p>Produk Titipan</p>
+                                        </a>
+                                    </li>
+                                @endcan
+                                @can('view-any', App\Models\Absensi::class)
+                                    <li class="nav-item">
+                                        <a href="{{ route('absensis.index') }}" class="nav-link">
+                                            <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                            <p>Absensi Kerja</p>
+                                        </a>
+                                    </li>
+                                @endcan
+                            </ul>
+                        </li>
+                    @endif
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
                             Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))

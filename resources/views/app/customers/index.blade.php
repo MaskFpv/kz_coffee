@@ -2,6 +2,11 @@
 
 @section('content')
     <div class="container">
+        @if (session('error'))
+            <div id="error-message" class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
         <div class="card">
             <div class="card-body">
                 <div class="searchbar mt-4 mb-4">
@@ -78,11 +83,6 @@
                                     </td>
                                 </tr>
                             @empty
-                                <tr>
-                                    <td colspan="4">
-                                        @lang('crud.common.no_items_found')
-                                    </td>
-                                </tr>
                             @endforelse
                         </tbody>
                     </table>
@@ -122,22 +122,18 @@
 
 @push('scripts')
     <script>
-        // Sweet alert
-        $('.btn-delete').on('click', function(e) {
-            let nama_produk = $(this).closest('tr').find('td:eq(0)').text();
-            Swal.fire({
-                icon: 'error',
-                title: 'Hapus Data',
-                html: 'Apakah Yakin data Customer ini akan dihapus?',
-                showCancelButton: true,
-                confirmButtonText: 'Ya',
-                denyButtonText: 'Tidak',
-                showDenyButon: true,
-                focusConfirm: false
-            }).then((result) => {
-                if (result.isConfirmed) $(e.target).closest('form').submit()
-                else swal.close()
-            })
-        })
+        // Ambil elemen pesan error
+        var errorMessage = document.getElementById('error-message');
+
+        // Jika pesan error ada, atur waktu untuk fade out setelah 5 detik
+        if (errorMessage) {
+            setTimeout(function() {
+                errorMessage.style.transition = "opacity 1s";
+                errorMessage.style.opacity = "0";
+                setTimeout(function() {
+                    errorMessage.remove(); // Hapus elemen pesan error dari DOM setelah fade out
+                }, 1000);
+            }, 5000); // Atur waktu fade out menjadi 5 detik (5000 milidetik)
+        }
     </script>
 @endpush

@@ -125,6 +125,23 @@
                     "width=500px,height=700px");
 
             });
+            // Sweet alert
+            $('.btn-delete').on('click', function(e) {
+                let nama_produk = $(this).closest('tr').find('td:eq(0)').text();
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Hapus Data',
+                    html: 'Apakah Yakin data ini akan dihapus?',
+                    showCancelButton: true,
+                    confirmButtonText: 'Ya',
+                    denyButtonText: 'Tidak',
+                    showDenyButon: true,
+                    focusConfirm: false
+                }).then((result) => {
+                    if (result.isConfirmed) $(e.target).closest('form').submit()
+                    else swal.close()
+                })
+            })
         </script>
 
         <script>
