@@ -43,7 +43,7 @@
     <div class="col-sm-12 mt-3">
         <label for="harga" class="form-label">Harga</label>
         <input type="number" name="harga" id="harga" class="form-control @error('harga') is-invalid @enderror"
-            value="{{ old('harga', $editing ? $menu->harga : '') }}" step="0.01" placeholder="Masukkan harga menu"
+            value="{{ old('harga', $editing ? $menu->harga : '') }}" min="0" placeholder="Masukkan harga menu"
             required>
         @error('harga')
             <div class="invalid-feedback">{{ $message }}</div>

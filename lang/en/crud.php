@@ -93,6 +93,8 @@ return [
         'inputs' => [
             'jumlah' => 'Stok',
             'menu_id' => 'Menu',
+            'type_id' => 'Jenis',
+            'category_id' => 'Kategori'
         ],
     ],
 

@@ -8,7 +8,6 @@
             placeholder="Masukkan stok menu yang tersedia" required>
     </div>
 
-
     <div class="col-sm-12 mt-3">
         <label for="menu_id" class="form-label">Menu</label>
         <select name="menu_id" id="menu_id" class="form-select" required>

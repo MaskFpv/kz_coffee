@@ -49,6 +49,12 @@
                                 <th class="text-left">
                                     @lang('crud.stok.inputs.menu_id')
                                 </th>
+                                <th class="text-left">
+                                    @lang('crud.stok.inputs.type_id')
+                                </th>
+                                <th class="text-left">
+                                    @lang('crud.stok.inputs.category_id')
+                                </th>
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -59,6 +65,8 @@
                                 <tr>
                                     <td>{{ $stock->jumlah ?? '-' }}</td>
                                     <td>{{ optional($stock->menu)->nama ?? '-' }}</td>
+                                    <td>{{ optional($stock->menu->type)->nama_jenis ?? '-' }}</td>
+                                    <td>{{ optional($stock->menu->type->category)->nama ?? '-' }}</td>
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $stock)

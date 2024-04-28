@@ -4,7 +4,8 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-return new class extends Migration {
+return new class extends Migration
+{
     /**
      * Run the migrations.
      */
@@ -17,7 +18,6 @@ return new class extends Migration {
             $table->enum('payment_method', ['cash', 'debit']);
             $table->text('keterangan');
             $table->unsignedBigInteger('customer_id');
-            $table->unsignedBigInteger('stock_id');
 
             $table->timestamps();
         });

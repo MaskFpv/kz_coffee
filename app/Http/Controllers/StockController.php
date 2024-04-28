@@ -36,12 +36,12 @@ class StockController extends Controller
     {
         $this->authorize('create', Stock::class);
 
-        // // Mengambil semua menu yang belum memiliki stok
-        // $menus = Menu::whereNotIn('id', function ($query) {
-        //     $query->select('menu_id')->from('stocks');
-        // })->pluck('nama', 'id');
+        // Mengambil semua menu yang belum memiliki stok
+        $menus = Menu::whereNotIn('id', function ($query) {
+            $query->select('menu_id')->from('stocks');
+        })->pluck('nama', 'id');
 
-        $menus = Menu::pluck('nama', 'id');
+        // $menus = Menu::pluck('nama', 'id');
 
         return view('app.stocks.create', compact('menus'));
     }
@@ -55,13 +55,13 @@ class StockController extends Controller
 
         $validated = $request->validated();
 
-        // Check if menu with the given ID already exists in the stocks table
-        $existingStock = Stock::where('menu_id', $validated['menu_id'])->first();
+        // // Check if menu with the given ID already exists in the stocks table
+        // $existingStock = Stock::where('menu_id', $validated['menu_id'])->first();
 
-        if ($existingStock) {
-            // Jika menu sudah ada, berikan pesan error dan redirect kembali ke halaman sebelumnya
-            return redirect()->route('stocks.index')->withErrors(__('crud.common.ada'));
-        }
+        // if ($existingStock) {
+        //     // Jika menu sudah ada, berikan pesan error dan redirect kembali ke halaman sebelumnya
+        //     return redirect()->route('stocks.index')->withErrors(__('crud.common.ada'));
+        // }
 
         $stock = Stock::create($validated);
 
@@ -84,13 +84,12 @@ class StockController extends Controller
     {
         $this->authorize('update', $stock);
 
-        // // Mengambil semua menu yang belum memiliki stok atau memiliki stok yang sama dengan yang sedang diedit
-        // $menus = Menu::whereNotIn('id', function ($query) use ($stock) {
-        //     $query->select('menu_id')->from('stocks')->where('id', '!=', $stock->id);
-        // })->pluck('nama', 'id');
+        // Mengambil semua menu yang belum memiliki stok atau memiliki stok yang sama dengan yang sedang diedit
+        $menus = Menu::whereNotIn('id', function ($query) use ($stock) {
+            $query->select('menu_id')->from('stocks')->where('id', '!=', $stock->id);
+        })->pluck('nama', 'id');
 
-
-        $menus = Menu::pluck('nama', 'id');
+        // $menus = Menu::pluck('nama', 'id');
 
         return view('app.stocks.edit', compact('stock', 'menus'));
     }
@@ -106,17 +105,17 @@ class StockController extends Controller
 
         $validated = $request->validated();
 
-        // Check if menu with the updated ID already exists in the stocks table
-        $existingStock = Stock::where('menu_id', $validated['menu_id'])
-            ->where('id', '!=', $stock->id) // Exclude the current stock being updated
-            ->first();
+        // // Check if menu with the updated ID already exists in the stocks table
+        // $existingStock = Stock::where('menu_id', $validated['menu_id'])
+        //     ->where('id', '!=', $stock->id) // Exclude the current stock being updated
+        //     ->first();
 
-        if ($existingStock) {
-            // If menu already exists, give an error message and redirect back
-            return redirect()
-                ->route('stocks.index')
-                ->withErrors(__('crud.common.ada'));
-        }
+        // if ($existingStock) {
+        //     // If menu already exists, give an error message and redirect back
+        //     return redirect()
+        //         ->route('stocks.index')
+        //         ->withErrors(__('crud.common.ada'));
+        // }
 
         $stock->update($validated);
 

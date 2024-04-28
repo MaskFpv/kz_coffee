@@ -25,6 +25,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha384-dTveN9AYCV/L8yQo4tlQSp9YBy5XlHI1fc0J90K9f7ZlpTkEULV0Bbiho3vQ8qaD" crossorigin="anonymous">
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -56,6 +59,14 @@
         .nav-icon.icon:before {
             width: 25px;
         }
+
+        .bg-light {
+            background-color: #ffffff !important;
+            color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Menambahkan bayangan */
+        }
+
 
         .btn.btn-primary {
             background-color: #2e558f !important;
