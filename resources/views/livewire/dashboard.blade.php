@@ -2,6 +2,7 @@
     <h2 class="px-4">Dashboard</h2>
     <hr>
     <div class="container-fluid p-4">
+        {{-- Barisan pertama --}}
         <div class="row">
             {{-- Tampilan --}}
             <div class="col-md-3">
@@ -41,6 +42,7 @@
                 </div>
             </div>
         </div>
+        {{-- Barisan Kedua --}}
         <div class="row mt-4">
             {{-- For Graphics --}}
             <div class="col-md-8">
@@ -57,7 +59,6 @@
             </div>
             <div class="col-md-4">
                 <div class="bg-light rounded p-4" style="height: 40rem;">
-                    <!-- Bagian Header -->
                     <div class="header">
                         <div class="d-flex justify-content-between">
                             <div class="header-1 px-3 py-1">
@@ -71,11 +72,10 @@
                         </div>
                     </div>
                     <hr>
-                    <!-- Bagian Detail Menu -->
                     <div class="detail-menu mt-3 scrollable" style="height: calc(100% - 100px); overflow-y: auto;">
                         @if ($topMenus)
                             @foreach ($topMenus as $menu)
-                                <div class="card mb-3" style="border-radius: 8px;">
+                                <div class="card mb-3" style="border-radius: 8px; width: 97%">
                                     <div class="produk d-flex align-items-center p-2">
                                         <img src="{{ $menu->photo ? \Storage::url($menu->photo) : '' }}"
                                             alt="{{ $menu->nama }}" class="m-2 img-thumbnail"
@@ -100,31 +100,93 @@
             </div>
 
         </div>
+        {{-- Barisan Ketiga --}}
         <div class="row mt-4">
             <div class="col-md-6">
-                <div class="bg-light rounded d-flex justify-content-between p-4" style="height: 30rem">
-                    <div class="header-1 px-3 py-1">
-                        <p class="mb-2 fs-4 fw-bold">Transaksi Terbaru</p>
+                <div class="bg-light rounded p-4" style="height: 36rem">
+                    <div class="header mb-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="header-1 px-3 py-1">
+                                <p class="mb-2 fs-4 fw-bold">Transaksi Terbaru</p>
+                            </div>
+                            <div class="header-2">
+                                <a href="{{ route('transaction.data') }}">
+                                    <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="header-2">
-                        <a href="{{ route('transaction.data') }}">
-                            <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
-                        </a>
+                    <hr>
+                    <div class="detail-menu mt-3 scrollable" style="height: calc(100% - 100px); overflow-y: auto;">
+                        @if ($recentTransactions->isNotEmpty())
+                            @foreach ($recentTransactions as $transaction)
+                                <div class="card mb-3" style="border-radius: 8px; width: 97%">
+                                    <div class="produk d-flex align-items-center p-2">
+                                        <i class="bi bi-cart-check text-primary px-2"
+                                            style="font-size: 3rem; margin-left: 10px;"></i>
+                                        <div class="w-100 d-flex justify-content-between align-items-center">
+                                            <div class="info p-2 ml-4">
+                                                <p class="mb-2 fs-6 fw-bolder">Transaksi ID: {{ $transaction->id }}
+                                                </p>
+                                                <p class="mb-2 fs-6 text-muted">Waktu: {{ $transaction->created_at }}
+                                                </p>
+                                                <p class="mb-2 fs-6">Rp.
+                                                    {{ number_format($transaction->total_harga, 0, ',', '.') }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>
+                                <center>Data Tidak Tersedia</center>
+                            </p>
+                        @endif
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="bg-light rounded d-flex justify-content-between p-4" style="height: 30rem">
-                    <div class="header-1 px-3 py-1">
-                        <p class="mb-2 fs-4 fw-bold">Stok Terendah</p>
+                <div class="bg-light rounded p-4" style="height: 36rem">
+                    <div class="header mb-3">
+                        <div class="d-flex justify-content-between">
+                            <div class="header-1 px-3 py-1">
+                                <p class="mb-2 fs-4 fw-bold">Stok Terendah</p>
+                            </div>
+                            <div class="header-2">
+                                <a href="{{ route('stocks.index') }}">
+                                    <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="header-2">
-                        <a href="{{ route('transaction.data') }}">
-                            <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
-                        </a>
+                    <hr>
+                    <div class="detail-menu mt-3 scrollable" style="height: calc(100% - 100px); overflow-y: auto;">
+                        @if ($lowStockMenus)
+                            @foreach ($lowStockMenus as $m)
+                                <div class="card mb-3" style="border-radius: 8px; width: 97%">
+                                    <div class="produk d-flex align-items-center p-2">
+                                        <img src="{{ $m->photo ? \Storage::url($m->photo) : '' }}"
+                                            alt="{{ $m->nama }}" class="m-2 img-thumbnail"
+                                            style="width:70px; height: 70px; object-fit: cover">
+                                        <div class="w-100 d-flex justify-content-between align-items-center">
+                                            <div class="info p-2 ml-4">
+                                                <p class="mb-2 fs-5 fw-bolder">{{ $m->nama }}</p>
+                                                <p class="mb-2 fs-6 text-muted">{{ $m->total_stock }} Stok Tersisa</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>
+                                <center>Data Tidak Tersedia</center>
+                            </p>
+                        @endif
                     </div>
                 </div>
+
             </div>
+
         </div>
         <!-- Script Chart.js dari CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

@@ -20,6 +20,7 @@ class Laporan extends Component
 
     public function getLaporan()
     {
+
         $this->validate([
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',

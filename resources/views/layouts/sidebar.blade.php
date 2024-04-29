@@ -129,7 +129,7 @@
                                     </a>
                                 </li>
                             @endcan
-                            @can('view-any', App\Models\Transaction::class)
+                            @can('view-any', App\Models\Stocks::class)
                                 <li class="nav-item">
                                     <a href="{{ route('transaction.laporan') }}" class="nav-link">
                                         <i class="nav-icon icon ion-md-radio-button-off"></i>
@@ -140,8 +140,7 @@
                         </ul>
                     </li>
 
-                    @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
-                            Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
+                    {{-- @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) || Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon icon ion-md-apps"></i>
@@ -177,7 +176,7 @@
                                 @endcan
                             </ul>
                         </li>
-                    @endif
+                    @endif --}}
 
                     @if (Auth::user()->can('view-any', Spatie\Permission\Models\Role::class) ||
                             Auth::user()->can('view-any', Spatie\Permission\Models\Permission::class))

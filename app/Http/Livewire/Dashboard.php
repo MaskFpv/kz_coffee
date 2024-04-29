@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class Dashboard extends Component
 {
@@ -15,6 +16,8 @@ class Dashboard extends Component
     public $totalMenu;
     public $totalCustomer;
     public $topMenus;
+    public $recentTransactions;
+    public $lowStockMenus;
     public $totalOmset;
     public $omsetData = [];
 
@@ -33,10 +36,26 @@ class Dashboard extends Component
             ->limit(5)
             ->get();
 
+        // Mendapatkan lima menu dengan stok tersisa sedikit
+        $this->lowStockMenus = Menu::select('menus.*', \DB::raw('COALESCE(SUM(stocks.jumlah), 0) as total_stock'))
+            ->leftJoin('stocks', 'menus.id', '=', 'stocks.menu_id')
+            ->groupBy('menus.id', 'menus.nama', 'menus.harga', 'menus.photo', 'menus.type_id', 'menus.created_at', 'menus.updated_at')
+            ->havingRaw('total_stock <= ?', [10]) // Ubah ambang batas sesuai kebutuhan Anda
+            ->orderByRaw('total_stock') // Urutkan berdasarkan stok tersisa dari yang terkecil
+            ->limit(5)
+            ->get();
 
-
-
-
+        // Mendapatkan transaksi terbaru berserta detailnya
+        $this->recentTransactions = TransactionDetail::select(
+            'transactions.id',
+            'transactions.created_at',
+            DB::raw('SUM(transaction_details.qty * transaction_details.unit_price) AS total_harga')
+        )
+            ->join('transactions', 'transaction_details.transaction_id', '=', 'transactions.id')
+            ->groupBy('transactions.id', 'transactions.created_at')
+            ->orderByDesc('transactions.created_at')
+            ->limit(5)
+            ->get();
 
         // Inisialisasi array untuk tanggal dan omset
         $dates = [];

@@ -2,7 +2,7 @@
     <div class="container-fluid pt-1 px-5">
         <h3>Laporan Transaksi</h3>
         <div>
-            <form wire:submit='getLaporan'>
+            <form wire:submit.prevent='getLaporan'>
                 <div class="input-tanggal row mt-4 px-5">
                     <div class="col-md-5">
                         <label class="p-2" for="awal">Tanggal Mulai</label>
@@ -41,7 +41,7 @@
                     </a>
                 </div>
                 <div class="table-responsive mt-1">
-                    <table id="myTable" class="table table-bordered table-hover mt-2">
+                    <table id="table" class="table table-bordered table-hover mt-2">
                         <thead>
                             <tr>
                                 <th class="text-left">@lang('crud.transaction.inputs.id')</th>

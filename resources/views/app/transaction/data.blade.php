@@ -62,20 +62,13 @@
                                     <td>{{ $transaction->keterangan ?? '-' }}</td>
                                     <td>Rp {{ number_format($transaction->total_price, 0, ',', '.') ?? '-' }}</td>
                                     <td class="text-center" style="width: 134px;">
-                                        <div role="group" aria-label="Row Actions" class="btn-group d-flex gap-2">
-                                            @can('view', $transaction)
-                                                <a href="/transaction/show/{{ $transaction->id }}">
-                                                    <button type="button" class="btn btn-light">
-                                                        <i class="icon ion-md-eye"></i>
-                                                    </button>
-                                                </a>
-                                                <a class="open-invoice" data-no_invoice="{{ $transaction->id ?? '' }}">
-                                                    <button type="button" class="btn btn-dark"
-                                                        style="background-color: #898193">
-                                                        <i class="bi bi-receipt"></i>
-                                                    </button>
-                                                </a>
-                                            @endcan
+                                        <div role="group" aria-label="Row Actions" class="btn-group align-items-center gap-2">
+                                            <a class="open-invoice" data-no_invoice="{{ $transaction->id ?? '' }}">
+                                                <button type="button" class="btn btn-dark"
+                                                    style="background-color: #898193">
+                                                    <i class="bi bi-receipt"></i>
+                                                </button>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>
