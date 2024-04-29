@@ -13,6 +13,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProdukTitipanController;
 use App\Http\Controllers\TransactionController;
@@ -42,6 +43,7 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::prefix('/')
     ->middleware('auth')
     ->group(function () {
+        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
         Route::resource('roles', RoleController::class);
         Route::resource('permissions', PermissionController::class);
         Route::resource('categories', CategoryController::class);
@@ -63,6 +65,7 @@ Route::prefix('/')
 
         // Transaksi
         Route::get('transaction', [TransactionController::class, 'index'])->name('transaction.index');
+        Route::get('transaction/laporan', [TransactionController::class, 'laporan'])->name('transaction.laporan');
         Route::get('transaction/index', [TransactionController::class, 'listTransaksi'])->name('transaction.data');
         Route::get('transaction/invoice/{id}', [TransactionController::class, 'nota_faktur']);
 

@@ -1,0 +1,159 @@
+<div>
+    <h2 class="px-4">Dashboard</h2>
+    <hr>
+    <div class="container-fluid p-4">
+        <div class="row">
+            {{-- Tampilan --}}
+            <div class="col-md-3">
+                <div class="bg-light rounded d-flex align-items-center p-4">
+                    <i class="bi bi-graph-up text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
+                    <div>
+                        <p class="mb-2 fs-6">Jumlah Transaksi</p>
+                        <h6 class="mb-0 fs-4 fw-bold">{{ $totalTransaksi }} Transaksi</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-light rounded d-flex align-items-center p-4">
+                    <i class="bi bi-cash-stack text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
+                    <div>
+                        <p class="mb-2 fs-6">Omset Pendapatan</p>
+                        <h6 class="mb-0 fs-4 fw-bold">Rp {{ number_format($totalOmset, 0, ',', '.') }} ;-</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-light rounded d-flex align-items-center p-4">
+                    <i class="bi bi-people text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
+                    <div>
+                        <p class="mb-2 fs-6 ">Total Customer</p>
+                        <h6 class="mb-0 fs-4 fw-bold">{{ $totalCustomer }}</h6>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="bg-light rounded d-flex align-items-center p-4">
+                    <i class="bi bi-journal-text text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
+                    <div>
+                        <p class="mb-2 fs-6 ">Total Menu</p>
+                        <h6 class="mb-0 fs-4 fw-bold">{{ $totalMenu }}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4">
+            {{-- For Graphics --}}
+            <div class="col-md-8">
+                <div class="bg-light rounded p-4" style="height: 40rem">
+                    <div class="header">
+                        <div class="header-1 px-3 py-1">
+                            <p class="mb-2 fs-4 fw-bold">Grafik Pendapatan</p>
+                        </div>
+                    </div>
+                    <div class="grafik mt-1 " wire:ignore>
+                        <canvas id="myChart" width="1500" height="670"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-light rounded p-4" style="height: 40rem;">
+                    <!-- Bagian Header -->
+                    <div class="header">
+                        <div class="d-flex justify-content-between">
+                            <div class="header-1 px-3 py-1">
+                                <p class="mb-2 fs-4 fw-bold">Top 5 Penjualan</p>
+                            </div>
+                            <div class="header-2">
+                                <a href="{{ route('transaction.index') }}">
+                                    <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- Bagian Detail Menu -->
+                    <div class="detail-menu mt-3 scrollable" style="height: calc(100% - 100px); overflow-y: auto;">
+                        @if ($topMenus)
+                            @foreach ($topMenus as $menu)
+                                <div class="card mb-3" style="border-radius: 8px;">
+                                    <div class="produk d-flex align-items-center p-2">
+                                        <img src="{{ $menu->photo ? \Storage::url($menu->photo) : '' }}"
+                                            alt="{{ $menu->nama }}" class="m-2 img-thumbnail"
+                                            style="width:70px; height: 70px; object-fit: cover">
+                                        <div class="w-100 d-flex justify-content-between align-items-center">
+                                            <div class="info p-2 ml-4">
+                                                <p class="mb-2 fs-5 fw-bolder">{{ $menu->nama }}</p>
+                                                <p class="mb-2 fs-6 text-muted">{{ $menu->total_qty }}
+                                                    Terjual</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <p>
+                                <center>Data Tidak Tersedis</center>
+                            </p>
+                        @endif
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="bg-light rounded d-flex justify-content-between p-4" style="height: 30rem">
+                    <div class="header-1 px-3 py-1">
+                        <p class="mb-2 fs-4 fw-bold">Transaksi Terbaru</p>
+                    </div>
+                    <div class="header-2">
+                        <a href="{{ route('transaction.data') }}">
+                            <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="bg-light rounded d-flex justify-content-between p-4" style="height: 30rem">
+                    <div class="header-1 px-3 py-1">
+                        <p class="mb-2 fs-4 fw-bold">Stok Terendah</p>
+                    </div>
+                    <div class="header-2">
+                        <a href="{{ route('transaction.data') }}">
+                            <p class="fs-6 text-info fw-light px-3 py-2">Lihat Detail</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Script Chart.js dari CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            document.addEventListener('livewire:load', function() {
+                var ctx = document.getElementById('myChart').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: @json($dates), // Gunakan data tanggal dari Livewire
+                        datasets: [{
+                            label: 'Omset per Hari',
+                            data: @json($omsets), // Gunakan data omset per hari dari Livewire
+                            backgroundColor: 'rgba(99, 255, 203, 0.2)',
+                            borderColor: 'rgb(23, 56, 106)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }]
+                        }
+                    }
+                });
+            });
+        </script>
+
+    </div>

@@ -17,12 +17,22 @@
                 @auth
                     <li class="nav-item">
                         <a href="{{ route('home') }}" class="nav-link">
-                            <i class="nav-icon icon ion-md-pulse"></i>
+                            <i class="nav-icon icon ion-md-home"></i>
                             <p>
-                                Dashboard
+                                Home
                             </p>
                         </a>
                     </li>
+                    @can('view-any', App\Models\Stock::class)
+                        <li class="nav-item">
+                            <a href="{{ route('dashboard.index') }}" class="nav-link">
+                                <i class="nav-icon icon ion-md-pulse"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                    @endcan
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -116,6 +126,14 @@
                                     <a href="{{ route('transaction.data') }}" class="nav-link">
                                         <i class="nav-icon icon ion-md-radio-button-off"></i>
                                         <p>List Transaksi</p>
+                                    </a>
+                                </li>
+                            @endcan
+                            @can('view-any', App\Models\Transaction::class)
+                                <li class="nav-item">
+                                    <a href="{{ route('transaction.laporan') }}" class="nav-link">
+                                        <i class="nav-icon icon ion-md-radio-button-off"></i>
+                                        <p>Laporan Transaksi</p>
                                     </a>
                                 </li>
                             @endcan
