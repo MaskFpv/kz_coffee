@@ -104,7 +104,7 @@
                         @endforeach
                     @endif
                 </div>
-                <div class="paginate d-flex justify-content-center mt-5">
+                <div class="paginate d-flex justify-content-center mt-5 mb-2">
                     {{ $menus->links() }}
                 </div>
             </div>

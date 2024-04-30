@@ -107,8 +107,8 @@
                     @if ($payment_method == 'cash')
                         <div class="mb-3 mt-2">
                             <label for="total_pembayaran" class="form-label">Bayar</label>
-                            <input type="number" name="total_pembayaran" wire:change="functionKembalian()"
-                                wire:model.lazy='total_pembayaran'
+                            <input type="number" min="0" name="total_pembayaran"
+                                wire:change="functionKembalian()" wire:model.lazy='total_pembayaran'
                                 class="form-control @error('total_pembayaran') is-invalid @enderror">
                             @error('total_pembayaran')
                                 <div class="invalid-feedback">{{ $message }}</div>

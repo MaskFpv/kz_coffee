@@ -115,7 +115,7 @@
                                 <div class="float-end">
                                     <a href="javascript:window.print()" class="btn btn-success me-1"><i
                                             class="fa fa-print">Print</i></a>
-                                    <a href="#" class="btn btn-info w-md">Send</a>
+                                    <a href="{{ route('transaction.index') }}" class="btn btn-light w-md">Back</a>
                                 </div>
                             </div>
                         </div>

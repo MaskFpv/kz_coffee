@@ -5,7 +5,7 @@
         {{-- Barisan pertama --}}
         <div class="row">
             {{-- Tampilan --}}
-            <div class="col-md-3">
+            <div class="col-xl-3 mt-2 mt-2">
                 <div class="bg-light rounded d-flex align-items-center p-4">
                     <i class="bi bi-graph-up text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
                     <div>
@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-xl-3 mt-2 mt-2">
                 <div class="bg-light rounded d-flex align-items-center p-4">
                     <i class="bi bi-cash-stack text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
                     <div>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-xl-3 mt-2 mt-2">
                 <div class="bg-light rounded d-flex align-items-center p-4">
                     <i class="bi bi-people text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
                     <div>
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-xl-3 mt-2 mt-2">
                 <div class="bg-light rounded d-flex align-items-center p-4">
                     <i class="bi bi-journal-text text-primary px-2" style="font-size: 3rem; margin-right: 1em;"></i>
                     <div>
@@ -45,19 +45,20 @@
         {{-- Barisan Kedua --}}
         <div class="row mt-4">
             {{-- For Graphics --}}
-            <div class="col-md-8">
+            <div class="col-xl-8 mt-2">
                 <div class="bg-light rounded p-4" style="height: 40rem">
                     <div class="header">
                         <div class="header-1 px-3 py-1">
                             <p class="mb-2 fs-4 fw-bold">Grafik Pendapatan</p>
                         </div>
                     </div>
-                    <div class="grafik mt-1 " wire:ignore>
-                        <canvas id="myChart" width="1500" height="670"></canvas>
+                    <div class="grafik mt-1">
+                        <canvas id="myChart" style="width: 100%; height: 500px;"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+
+            <div class="col-xl-4 mt-2">
                 <div class="bg-light rounded p-4" style="height: 40rem;">
                     <div class="header">
                         <div class="d-flex justify-content-between">
@@ -102,7 +103,7 @@
         </div>
         {{-- Barisan Ketiga --}}
         <div class="row mt-4">
-            <div class="col-md-6">
+            <div class="col-xl-6 mt-2">
                 <div class="bg-light rounded p-4" style="height: 36rem">
                     <div class="header mb-3">
                         <div class="d-flex justify-content-between">
@@ -145,7 +146,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-xl-6 mt-2">
                 <div class="bg-light rounded p-4" style="height: 36rem">
                     <div class="header mb-3">
                         <div class="d-flex justify-content-between">
@@ -202,10 +203,12 @@
                             data: @json($omsets), // Gunakan data omset per hari dari Livewire
                             backgroundColor: 'rgba(99, 255, 203, 0.2)',
                             borderColor: 'rgb(23, 56, 106)',
-                            borderWidth: 2
+                            borderWidth: 3
                         }]
                     },
                     options: {
+                        responsive: true, // Set responsivitas ke true
+                        maintainAspectRatio: false, // Biarkan aspek rasio tidak dipertahankan
                         scales: {
                             yAxes: [{
                                 ticks: {

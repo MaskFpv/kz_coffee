@@ -7,14 +7,14 @@
                 <div class="card">
                     <div class="card-header">{{ __('Home') }}</div>
 
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         @if (session('status'))
                             <div class="alert alert-success" role="alert">
                                 {{ session('status') }}
                             </div>
                         @endif
 
-                        {{ __('You are logged in!') }}
+                        <p class="mb-2 fs-4 text-success">{{ __('You are logged in!') }}</p>
                     </div>
                 </div>
             </div>
