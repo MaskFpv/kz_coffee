@@ -62,7 +62,8 @@
                                     <td>{{ $transaction->keterangan ?? '-' }}</td>
                                     <td>Rp {{ number_format($transaction->total_price, 0, ',', '.') ?? '-' }}</td>
                                     <td class="text-center" style="width: 134px;">
-                                        <div role="group" aria-label="Row Actions" class="btn-group align-items-center gap-2">
+                                        <div role="group" aria-label="Row Actions"
+                                            class="btn-group align-items-center gap-2">
                                             <a class="open-invoice" data-no_invoice="{{ $transaction->id ?? '' }}">
                                                 <button type="button" class="btn btn-dark"
                                                     style="background-color: #898193">
@@ -77,15 +78,6 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- <script>
-                    $(document).ready(function() {
-                        $('#myTable').DataTable({
-                            "order": [
-                                [1, "desc"]
-                            ]
-                        });
-                    });
-                </script> --}}
             </div>
         </div>
     </div>

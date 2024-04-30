@@ -185,9 +185,7 @@
                         @endif
                     </div>
                 </div>
-
             </div>
-
         </div>
         <!-- Script Chart.js dari CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

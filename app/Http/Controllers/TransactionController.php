@@ -21,7 +21,7 @@ class TransactionController extends Controller
     {
         $this->authorize('view-any', Transaction::class);
 
-        $transactions = Transaction::latest()->get();
+        $transactions = Transaction::latest('date')->get();
 
         return view('app.transaction.data', compact('transactions'));
     }
