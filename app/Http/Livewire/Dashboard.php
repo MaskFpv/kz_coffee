@@ -62,7 +62,7 @@ class Dashboard extends Component
         $omsets = [];
 
         // Ambil data untuk 7 hari terakhir
-        for ($i = 6; $i >= 0; $i--) {
+        for ($i = 10; $i >= 0; $i--) {
             // Tentukan tanggal untuk hari tersebut
             $date = Carbon::today()->subDays($i)->toDateString();
             // Ambil omset untuk tanggal tersebut

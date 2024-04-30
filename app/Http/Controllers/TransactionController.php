@@ -54,18 +54,20 @@ class TransactionController extends Controller
         return $pdf->download('transaction.pdf');
     }
 
-    public function exportLaporan($start, $end)
+    public function exportLaporan($awal, $akhir)
     {
-        $data_laporan = Transaction::whereBetween('date', [$start, $end]);
+        $data_laporan = Transaction::whereBetween('date', [$awal, $akhir]);
 
         $laporan = $data_laporan->get();
         $total_pendapatan = $data_laporan->sum('total_price');
 
-        $start_date = date('d-m-Y', strtotime($start));
-        $end_date = date('d-m-Y', strtotime($end));
+        $tanggalAwal = date('d-m-Y', strtotime($awal));
+        $tanggalAkhir = date('d-m-Y', strtotime($akhir));
 
-        $pdf = Pdf::loadView('app.transaction.laporanpdf', compact('laporan', 'total_pendapatan', 'start_date', 'end_date'));
+        $pdf = Pdf::loadView('app.transaction.pdf', compact('laporan', 'total_pendapatan', 'tanggalAwal', 'tanggalAkhir'))
+            ->setPaper('a4', 'landscape');
 
-        return $pdf->download("Laporan Tanggal " . date('d-m-Y'));
+        // Download the PDF file with the specified name
+        return $pdf->download("Laporan Tanggal " . date('d-m-Y') . ".pdf");
     }
 }

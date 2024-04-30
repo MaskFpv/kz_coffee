@@ -96,6 +96,7 @@ Route::prefix('/')
         Route::get('user/exportpdf', [UserController::class, 'exportpdf'])->name('user-exportPdf');
         Route::get('absensi/exportpdf', [AbsensiController::class, 'exportpdf'])->name('absensi-exportPdf');
         Route::get('transaction-list/exportpdf', [TransactionController::class, 'exportpdf'])->name('transaction-list-exportPdf');
+        Route::get('laporan/exportpdf/{awal}/{akhir}', [TransactionController::class, 'exportLaporan']);
 
 
         // Import

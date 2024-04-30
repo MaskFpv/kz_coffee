@@ -107,7 +107,7 @@
                         <a href="#" class="nav-link">
                             <i class="nav-icon icon ion-md-basket"></i>
                             <p>
-                                Transactions
+                                Transaksi
                                 <i class="nav-icon right icon ion-md-arrow-round-back"></i>
                             </p>
                         </a>
@@ -117,7 +117,7 @@
                                 <li class="nav-item">
                                     <a href="{{ route('transaction.index') }}" class="nav-link">
                                         <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                        <p>Transaksi</p>
+                                        <p>Pemesanan</p>
                                     </a>
                                 </li>
                             @endcan
@@ -184,7 +184,7 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon icon ion-md-key"></i>
                                 <p>
-                                    Access
+                                    Akses
                                     <i class="nav-icon right icon ion-md-arrow-round-back"></i>
                                 </p>
                             </a>
@@ -201,7 +201,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('roles.index') }}" class="nav-link">
                                             <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                            <p>Roles</p>
+                                            <p>Role</p>
                                         </a>
                                     </li>
                                 @endcan
@@ -210,7 +210,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('permissions.index') }}" class="nav-link">
                                             <i class="nav-icon icon ion-md-radio-button-off"></i>
-                                            <p>Permissions</p>
+                                            <p>Permission</p>
                                         </a>
                                     </li>
                                 @endcan
