@@ -43,6 +43,9 @@
                                 <th class="text-left">
                                     @lang('crud.users.inputs.email')
                                 </th>
+                                <th class="text-left">
+                                    Roles
+                                </th>
                                 <th class="text-center">
                                     @lang('crud.common.actions')
                                 </th>
@@ -53,6 +56,13 @@
                                 <tr>
                                     <td>{{ $user->name ?? '-' }}</td>
                                     <td>{{ $user->email ?? '-' }}</td>
+                                    <td>
+                                        @forelse ($user->roles as $role)
+                                            <div class="badge badge-primary">{{ $role->name }}</div>
+                                            <br />
+                                        @empty -
+                                        @endforelse
+                                    </td>
                                     <td class="text-center" style="width: 134px;">
                                         <div role="group" aria-label="Row Actions" class="btn-group">
                                             @can('update', $user)

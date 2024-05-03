@@ -35,6 +35,8 @@
         <thead>
             <th>No</th>
             <th>Stok</th>
+            <th>Jenis</th>
+            <th>Kategori</th>
             <th>Menu</th>
         </thead>
         <tbody>
@@ -45,7 +47,9 @@
                 <tr>
                     <td>{{ $counter++ }}</td>
                     <td>{{ $s->jumlah }}</td>
-                    <td>{{ $s->table->nomor_ }}</td>
+                    <td>{{ $s->menu->type->nama_jenis }}</td>
+                    <td>{{ $s->menu->type->category->nama }}</td>
+                    <td>{{ $s->menu->nama }}</td>
                 </tr>
             @endforeach
         </tbody>
